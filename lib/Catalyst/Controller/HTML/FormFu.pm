@@ -83,8 +83,21 @@ sub _form {
         $form->localize_object( $self->{c} );
     }
     
-    if ( $config->{set_default_action} ) {
-        $form->action( $self->{c}->uri_for( $self->{c}->{action}->name ) );
+    if ( $config->{default_action_use_name} ) {
+        my $action = $self->{c}->uri_for( $self->{c}->{action}->name );
+        $self->{c}->log->debug(
+            "FormFu - Setting default action by name: $action"
+        );
+        $form->action( $action );
+    }
+    elsif ( $config->{default_action_use_path} ) {
+        my $action =
+            $self->{c}->{request}->base.
+            $self->{c}->{request}->path;
+        $self->{c}->log->debug(
+            "FormFu - Setting default action by path: $action"
+        );
+        $form->action( $action );
     }
     
     my $context_stash = $config->{context_stash};
@@ -317,12 +330,31 @@ filenames.
 
 Default value: C<.yml>.
 
-=head2 set_default_action
+=head2 default_action_use_name
 
 If set to a true value the action for the form will be set to the currently 
-called action.
+called action name.
 
-Default value: C<0>.
+Default value: C<false>.
+
+=head2 default_action_use_path
+
+If set to a true value the action for the form will be set to the currently 
+called action path.
+The action path includes concurrent to action name additioal parameters which
+were code inside the path.
+
+Default value: C<false>.
+
+Example:
+    action: /foo/bar
+    called uri contains: /foo/bar/1
+
+default_action_use_name => 1 leads to
+    $form->action = /foo/bar
+
+default_action_use_path => 1 leads to
+    $form->action = /foo/bar/1
 
 =head2 context_stash
 
