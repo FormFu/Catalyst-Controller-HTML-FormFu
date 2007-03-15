@@ -33,9 +33,8 @@ sub _setup {
     my $self = shift;
     my ($c)  = @_;
 
-    my $config = $self->config->{'Controller::HTML::FormFu'}
-        || $c->config->{'Controller::HTML::FormFu'}
-        || {};
+    my $self_config = $self->config->{'Controller::HTML::FormFu'} || {};
+    my $parent_config = $c->config->{'Controller::HTML::FormFu'} || {};
 
     my %defaults = (
         form_method   => 'form',
@@ -51,7 +50,7 @@ sub _setup {
         config_file_ext => '.yml',
     );
     
-    my %args = ( %defaults, %$config );
+    my %args = ( %defaults, %$parent_config, %$self_config );
     
     $args{constructor}{render_class_args}{INCLUDE_PATH}
         ||= $c->path_to('root','formfu');
