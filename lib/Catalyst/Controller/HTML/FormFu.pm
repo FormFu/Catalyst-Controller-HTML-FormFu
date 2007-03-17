@@ -80,7 +80,7 @@ sub _form {
     }
     
     if ( $config->{localize_from_context} ) {
-        $form->localize_object( $self->{c} );
+        $form->add_localize_object( $self->{c} );
     }
     
     if ( $config->{default_action_use_name} ) {
