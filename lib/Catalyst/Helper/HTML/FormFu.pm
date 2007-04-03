@@ -16,9 +16,7 @@ sub mk_stuff {
         $helper->{base}, 'root', ( defined $dir ? $dir : 'formfu' )
     );
     
-    if ( defined $dir ) {
-        $helper->mk_dir( $form_dir );
-    }
+    $helper->mk_dir( $form_dir ) unless -d $form_dir;
     
     for my $filename (@files) {
         my $path = File::Spec->catfile( $form_dir, $filename );
