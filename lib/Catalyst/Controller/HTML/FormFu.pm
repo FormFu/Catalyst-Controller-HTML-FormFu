@@ -48,7 +48,8 @@ sub _setup {
         config_action => "Catalyst::Controller::HTML::FormFu::Action::Config",
         method_action => "Catalyst::Controller::HTML::FormFu::Action::Method",
         constructor   => {},
-        config_file_ext => '.yml',
+        config_file_ext  => '.yml',
+        config_file_path => $c->path_to( 'root', 'forms' ),
     );
     
     my %args = ( %defaults, %$parent_config, %$self_config );

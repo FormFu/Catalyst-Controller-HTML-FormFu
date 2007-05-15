@@ -28,7 +28,7 @@ sub execute {
         $c->log->debug( __PACKAGE__ ." searching for file '$file'" )
             if $c->debug;
         
-        $form->load_config_file( $c->path_to('root/forms', $file ) );
+        $form->load_config_file( $config->{config_file_root} ."/". $file );
     }
     
     $form->process( $c->request );
