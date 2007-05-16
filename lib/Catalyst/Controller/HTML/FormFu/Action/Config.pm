@@ -25,10 +25,14 @@ sub execute {
     }
     
     for my $file (@files) {
-        $c->log->debug( __PACKAGE__ ." searching for file '$file'" )
+        my $filepath = defined $config->{config_file_path}
+            ? $config->{config_file_path} ."/". $file
+            : $file;
+        
+        $c->log->debug( __PACKAGE__ ." searching for file '$filepath'" )
             if $c->debug;
         
-        $form->load_config_file( $config->{config_file_root} ."/". $file );
+        $form->load_config_file( $filepath );
     }
     
     $form->process( $c->request );
