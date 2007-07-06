@@ -55,7 +55,7 @@ sub _setup {
     my %args = ( %defaults, %$parent_config, %$self_config );
     
     $args{constructor}{render_class_args}{INCLUDE_PATH}
-        ||= $c->path_to('root','formfu');
+        ||= [ $c->path_to('root','formfu') ];
     
     $args{constructor}{query_type} ||= 'Catalyst';
     
