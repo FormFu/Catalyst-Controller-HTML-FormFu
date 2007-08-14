@@ -86,18 +86,21 @@ sub _form {
     
     if ( $config->{default_action_use_name} ) {
         my $action = $self->{c}->uri_for( $self->{c}->{action}->name );
+        
         $self->{c}->log->debug(
             "FormFu - Setting default action by name: $action"
-        );
+        ) if $self->{c}->debug;
+        
         $form->action( $action );
     }
     elsif ( $config->{default_action_use_path} ) {
         my $action =
-            $self->{c}->{request}->base.
-            $self->{c}->{request}->path;
+            $self->{c}->{request}->base . $self->{c}->{request}->path;
+        
         $self->{c}->log->debug(
             "FormFu - Setting default action by path: $action"
-        );
+        ) if $self->{c}->debug;
+        
         $form->action( $action );
     }
     

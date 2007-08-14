@@ -21,7 +21,8 @@ sub execute {
 
     for ( @{ $self->{_attr_params} } ) {    
         for my $method ( split ) {
-            $c->log->debug($method);
+            $c->log->debug($method) if $c->debug;
+            
             my $args = $controller->$method($c) || {};
             
             $form->populate( $args );
