@@ -9,7 +9,7 @@ use HTML::FormFu::Preload;
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
-our $VERSION = '0.00_01';
+our $VERSION = '0.01001';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
@@ -48,6 +48,7 @@ sub _setup {
         config_action => "Catalyst::Controller::HTML::FormFu::Action::Config",
         method_action => "Catalyst::Controller::HTML::FormFu::Action::Method",
         constructor   => {},
+        config_callback  => 1,
         config_file_ext  => '.yml',
         config_file_path => $c->path_to( 'root', 'forms' ),
     );
@@ -75,6 +76,16 @@ sub _form {
     });
     
     my $config = $self->_html_formfu_config;
+    
+    if ( $config->{config_callback} ) {
+            $form->config_callback({
+                plain_value => sub {
+                    return if !defined $_;
+                    s{__uri_for\((.+?)\)__}
+                     { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg
+                }
+            });
+    }
     
     if ( $config->{languages_from_context} ) {
         $form->languages( $self->{c}->languages );
@@ -325,6 +336,21 @@ These values are used by all of the action attributes, and by the
 C<< $self->form >> method.
 
 Default value: C<{}>.
+
+=head2 config_callback
+
+Arguments: bool
+
+If true, a coderef is passed to C<< $form->config_callback->{plain_value} >> 
+which replaces any instance of C<__uri_for(URI)__> found in form config 
+files with the result of passing the C<URI> argument to L<Catalyst/uri_for>.
+
+The form C<< __uri_for(URI, PATH, PARTS)__ >> is also supported, which is 
+equivalent to C<< $c->uri_for( 'URI', \@ARGS ) >>. At this time, there is no 
+way to pass query values equivalent to 
+C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>. 
+
+Default value: 1
 
 =head2 config_file_ext
 
