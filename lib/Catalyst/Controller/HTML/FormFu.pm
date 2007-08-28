@@ -85,6 +85,8 @@ sub _form {
                      { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg
                 }
             });
+            
+            weaken( $self->{c} );
     }
     
     if ( $config->{languages_from_context} ) {
