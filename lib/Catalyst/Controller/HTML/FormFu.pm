@@ -5,7 +5,6 @@ use warnings;
 use base qw( Catalyst::Controller Class::Accessor::Fast );
 
 use HTML::FormFu;
-use HTML::FormFu::Preload;
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
