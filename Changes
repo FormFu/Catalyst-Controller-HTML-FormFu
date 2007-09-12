@@ -1,3 +1,8 @@
+0.01002 2007-09-12
+
+	- No longer use HTML::FormFu::Preload - tradeoff CPU for RAM
+	- Fix circular reference / memory leak
+
 0.01001	2007-08-22
 
 	- First CPAN release
