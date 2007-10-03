@@ -170,7 +170,9 @@ Catalyst::Controller::HTML::FormFu
         #
         # my $form = HTML::FormFu->new;
         #
-        # $c->stash->{form}   = $form;
+        # $form->query( $c->request );
+        # 
+        # $c->stash->{form} = $form;
     }
     
     sub bar : Local : FormConfig {
@@ -182,7 +184,9 @@ Catalyst::Controller::HTML::FormFu
         #
         # $form->load_config_file('root/forms/my/controller/bar.yml');
         #
-        # $c->stash->{form}   = $form;
+        # $form->process( $c->request );
+        #
+        # $c->stash->{form} = $form;
         #
         # so you only need to do the following...
         
@@ -202,7 +206,9 @@ Catalyst::Controller::HTML::FormFu
         #
         # $form->load_config_file('root/forms/my_config.yml');
         #
-        # $c->stash->{form}   = $form;
+        # $form->process( $c->request );
+        #
+        # $c->stash->{form} = $form;
         #
         # so you only need to do the following...
         
@@ -222,7 +228,9 @@ Catalyst::Controller::HTML::FormFu
         #
         # $form->populate( $c->load_form );
         #
-        # $c->stash->{form}   = $form;
+        # $form->process( $c->request );
+        #
+        # $c->stash->{form} = $form;
         #
         # so you only need to do the following...
         
@@ -254,7 +262,14 @@ This is useful when using the ConfigForm() or MethodForm() action attributes,
 to create a 2nd form which isn't populated using a config-file or method 
 return value.
 
-    my $form = $self->form;
+    sub foo : Local {
+        my ( $self, $c ) = @_;
+        
+        my $form = $self->form;
+    }
+
+Note that when using this method, the form's L<query|HTML::FormFu/query> 
+method is not populated with the Catalyst request object.
 
 =head1 CUSTOMIZATION
 
@@ -410,6 +425,19 @@ then setting L</languages_from_context>
 If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which 
 provides it's own C<localize> method, you can set L<localize_from_context> to 
 use that method for formfu's localization.
+
+=head1 CAVEATS
+
+When using the C<Form> action attribute to create an empty form, you must 
+call L<< $form->process|HTML::FormFu/process >> after populating the form.
+However, you don't need to pass any arguments to C<process>, as the 
+Catalyst request object will have automatically been set in 
+L<< $form->query|HTML::FormFu/query >>.
+
+When using the C<FormConfig> and C<FormMethod> action attributes, if you 
+make any modifications to the form, such as adding or changing it's 
+elements, you must call L<< $form->process|HTML::FormFu/process >> before 
+rendering the form.
 
 =head1 SEE ALSO
 

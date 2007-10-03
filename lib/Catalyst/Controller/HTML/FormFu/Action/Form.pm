@@ -18,7 +18,8 @@ sub execute {
       && $self->attributes->{ActionClass}[0] eq $config->{form_action};
 
     my $form = $controller->_form;
-    $form->process( $c->request );
+    
+    $form->query( $c->request );
     
     $c->stash->{ $config->{form_stash} } = $form;
     
