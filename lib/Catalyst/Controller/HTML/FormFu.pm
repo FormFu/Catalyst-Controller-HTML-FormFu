@@ -368,6 +368,13 @@ C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>.
 
 Default value: 1
 
+=head config_file_path
+
+Location of the form config files, used when creating a form with the 
+C<FormConfig> action controller.
+
+Default Value: C<< $c->path_to( 'root', 'forms' ) >>
+
 =head2 config_file_ext
 
 Set the default file extension used by the Config() action attribute. This 
