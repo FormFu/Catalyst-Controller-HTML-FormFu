@@ -39,6 +39,12 @@ Catalyst::Helper::HTML::FormFu - Helper to deploy HTML::FormFu template files.
 
     script/myapp_create.pl HTML::FormFu
 
+=head1 NOTICE
+
+As of L<HTML::FormFu> version 0.02000, you only need a local copy of the 
+template files if you wish to customise the templates. Otherwise, 
+HTML::FormFu will automatically find the system-installed templates.
+
 =head1 DESCRIPTION
 
 Uses L<HTML::FormFu::Deploy> to copy L<HTML::FormFu> template files into a 
