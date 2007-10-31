@@ -1,3 +1,8 @@
+0.02000
+
+	- Only set INCLUDE_PATH if it's not already set, and if 'root/formfu' 
+	  exists.
+
 0.01002 2007-09-12
 
 	- No longer use HTML::FormFu::Preload - tradeoff CPU for RAM

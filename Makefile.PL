@@ -6,7 +6,7 @@ all_from 'lib/Catalyst/Controller/HTML/FormFu.pm';
 requires 'Catalyst::Runtime';
 requires 'Config::Any';
 requires 'File::Spec';
-requires 'HTML::FormFu';
+requires 'HTML::FormFu' => '0.02000';
 requires 'NEXT';
 requires 'Scalar::Util';
 

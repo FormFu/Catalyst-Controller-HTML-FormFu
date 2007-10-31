@@ -54,8 +54,14 @@ sub _setup {
     
     my %args = ( %defaults, %$parent_config, %$self_config );
     
-    $args{constructor}{render_class_args}{INCLUDE_PATH}
-        ||= [ $c->path_to('root','formfu') ];
+    my $local_path = $c->path_to('root','formfu');
+    
+    if ( !exists $args{constructor}{render_class_args}
+        || !exists $args{constructor}{render_class_args}{INCLUDE_PATH}
+        && -d $local_path )
+    {
+        $args{constructor}{render_class_args}{INCLUDE_PATH} = [$local_path];
+    }
     
     $args{constructor}{query_type} ||= 'Catalyst';
     
@@ -281,6 +287,11 @@ or your application config.
     # or
     
     MyApp->config( 'Controller::HTML::FormFu' => \%my_values );
+    
+    # or, in myapp.yml
+    
+    ---
+    'Controller::HTML::FormFu': {  }
 
 =head2 form_method
 
