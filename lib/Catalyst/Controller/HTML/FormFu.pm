@@ -379,7 +379,7 @@ C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>.
 
 Default value: 1
 
-=head config_file_path
+=head2 config_file_path
 
 Location of the form config files, used when creating a form with the 
 C<FormConfig> action controller.
