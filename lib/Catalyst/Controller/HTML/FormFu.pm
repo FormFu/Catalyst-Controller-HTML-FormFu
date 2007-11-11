@@ -87,7 +87,9 @@ sub _form {
                 plain_value => sub {
                     return if !defined $_;
                     s{__uri_for\((.+?)\)__}
-                     { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg
+                     { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg;
+                    s{__path_to\(\s*(.+?)\s*\)__}
+                     { $self->{c}->path_to( split( '\s*,\s*', $1 ) ) }eg;
                 }
             });
             
@@ -369,13 +371,19 @@ Default value: C<{}>.
 Arguments: bool
 
 If true, a coderef is passed to C<< $form->config_callback->{plain_value} >> 
-which replaces any instance of C<__uri_for(URI)__> found in form config 
-files with the result of passing the C<URI> argument to L<Catalyst/uri_for>.
+which replaces any instance of C<__uri_for(URI)__> found in form config files
+with the result of passing the C<URI> argument to L<Catalyst/uri_for>.
 
 The form C<< __uri_for(URI, PATH, PARTS)__ >> is also supported, which is 
 equivalent to C<< $c->uri_for( 'URI', \@ARGS ) >>. At this time, there is no 
 way to pass query values equivalent to 
-C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>. 
+C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>.
+
+The second codeword that is being replaced is C<__path_to( @DIRS )__>. Any
+instance is replaced with the result of passing the C<DIRS> arguments to
+L<Catalyst/path_to>.
+Don't use qoutationmarks as they would become part of the path.
+
 
 Default value: 1
 
