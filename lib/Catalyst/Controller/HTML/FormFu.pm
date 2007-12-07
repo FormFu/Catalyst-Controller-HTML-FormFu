@@ -56,11 +56,11 @@ sub _setup {
     
     my $local_path = $c->path_to('root','formfu');
     
-    if ( !exists $args{constructor}{render_class_args}
-        || !exists $args{constructor}{render_class_args}{INCLUDE_PATH}
+    if ( !exists $args{constructor}{tt_args}
+        || !exists $args{constructor}{tt_args}{INCLUDE_PATH}
         && -d $local_path )
     {
-        $args{constructor}{render_class_args}{INCLUDE_PATH} = [$local_path];
+        $args{constructor}{tt_args}{INCLUDE_PATH} = [$local_path];
     }
     
     $args{constructor}{query_type} ||= 'Catalyst';
