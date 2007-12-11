@@ -1,7 +1,9 @@
-0.02000
+0.02000 2007-12-12
 
 	- Only set INCLUDE_PATH if it's not already set, and if 'root/formfu' 
 	  exists.
+	- Use of $form->render_class_args() changed to tt_args()
+	- Added support for expanding __path_to()__ in config callback
 
 0.01002 2007-09-12
 

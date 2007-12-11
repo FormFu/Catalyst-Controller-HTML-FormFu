@@ -8,7 +8,7 @@ use HTML::FormFu;
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
-our $VERSION = '0.01002';
+our $VERSION = '0.02000';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
