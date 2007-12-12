@@ -39,24 +39,34 @@ Catalyst::Helper::HTML::FormFu - Helper to deploy HTML::FormFu template files.
 
     script/myapp_create.pl HTML::FormFu
 
-=head1 NOTICE
-
-As of L<HTML::FormFu> version 0.02000, you only need a local copy of the 
-template files if you wish to customise the templates. Otherwise, 
-HTML::FormFu will automatically find the system-installed templates.
-
 =head1 DESCRIPTION
 
-Uses L<HTML::FormFu::Deploy> to copy L<HTML::FormFu> template files into a 
-L<Catalyst> application's C<root/formfu> directory.
+As of version 0.02000, L<HTML::FormFu> doesn't use the TT template files by 
+default - it uses in internal rendering engine.
 
-To change the destination directory, pass it as an extra directory. It will be 
-created with the C<root> directory
+If you don't want to customise the generated markup, you don't need to use
+L<Catalyst::Helper::HTML::FormFu> at all.
 
-The following example would deploy the template files into directory 
-C<root/forms>.
+If you want to customise the generated markup, you'll need a 
+local copy of the template files. To create the files in the default
+C<root/formfu> directory, run:
+
+    script/myapp_create.pl HTML::FormFu
+
+To create the files in a different subdirectory of C<root>, pass the path
+as an argument. The following example would create the template files into 
+the directory C<root/forms>.
 
     script/myapp_create.pl HTML::FormFu forms
+
+You'll  also need to tell HTML::FormFu to use the TT renderer, this can be
+achieved with L<Catalyst::Controller::HTML::FormFu>, with the following
+Catalyst application YAML config:
+
+    ---
+    'Controller::HTML::FormFu':
+      constructor:
+        render_method: tt
 
 =head1 SUPPORT
 

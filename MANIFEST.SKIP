@@ -4,6 +4,7 @@
 ^\.project$
 ^\.includepath$
 ^\.settings\b
+^\.externalToolBuilders\b
 
 # Avoid version control files.
 \bRCS\b
