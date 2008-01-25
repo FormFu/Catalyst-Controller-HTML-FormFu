@@ -5,6 +5,7 @@ use warnings;
 use base qw( Catalyst::Controller Class::Accessor::Fast );
 
 use HTML::FormFu;
+use HTML::FormFu::MultiForm;
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
@@ -39,13 +40,24 @@ sub _setup {
     my %defaults = (
         form_method   => 'form',
         form_stash    => 'form',
-        context_stash => 'context',
         form_attr     => 'Form',
         config_attr   => 'FormConfig',
         method_attr   => 'FormMethod',
         form_action   => "Catalyst::Controller::HTML::FormFu::Action::Form",
-        config_action => "Catalyst::Controller::HTML::FormFu::Action::Config",
-        method_action => "Catalyst::Controller::HTML::FormFu::Action::Method",
+        config_action => "Catalyst::Controller::HTML::FormFu::Action::FormConfig",
+        method_action => "Catalyst::Controller::HTML::FormFu::Action::FormMethod",
+        
+        multiform_method        => 'multiform',
+        multiform_stash         => 'multiform',
+        multiform_attr          => 'MultiForm',
+        multiform_config_attr   => 'MultiFormConfig',
+        multiform_method_attr   => 'MultiFormMethod',
+        multiform_action        => "Catalyst::Controller::HTML::FormFu::Action::MultiForm",
+        multiform_config_action => "Catalyst::Controller::HTML::FormFu::Action::MultiFormConfig",
+        multiform_method_action => "Catalyst::Controller::HTML::FormFu::Action::MultiFormMethod",
+        
+        context_stash => 'context',
+        
         constructor   => {},
         config_callback  => 1,
         config_file_ext  => '.yml',
@@ -67,9 +79,10 @@ sub _setup {
     
     $self->_html_formfu_config( \%args );
     
-    my $form_method = $args{form_method};
+    # add controller methods
     no strict 'refs';
-    *{"$form_method"} = \&_form;
+    *{"$args{form_method}"}      = \&_form;
+    *{"$args{multiform_method}"} = \&_multiform;
 }
 
 sub _form {
@@ -79,6 +92,29 @@ sub _form {
         %{ $self->_html_formfu_config->{constructor} },
         ( @_ ? %{ $_[0] } : () ),
     });
+    
+    $self->_common_construction( $form );
+    
+    return $form;
+}
+
+sub _multiform {
+    my $self = shift;
+    
+    my $multi = HTML::FormFu::Multi->new({
+        %{ $self->_html_formfu_config->{constructor} },
+        ( @_ ? %{ $_[0] } : () ),
+    });
+    
+    $self->_common_construction( $multi );
+    
+    return $multi;
+}
+
+sub _common_construction {
+    my ( $self, $form ) = @_;
+    
+    croak "form or multi arg required" if !defined $form;
     
     my $config = $self->_html_formfu_config;
     
@@ -128,7 +164,7 @@ sub _form {
     $form->stash->{$context_stash} = $self->{c};
     weaken( $form->stash->{$context_stash} );
     
-    return $form;
+    return;
 }
 
 sub create_action {
@@ -137,7 +173,14 @@ sub create_action {
 
     my $config = $self->_html_formfu_config;
 
-    for my $type (qw/ form config method /) {
+    for my $type (qw/ 
+        form
+        config
+        method
+        multiform
+        multiform_config
+        multiform_method /)
+    {
         my $attr = $config->{"${type}_attr"};
         
         if ( exists $args{attributes}{$attr} ) {

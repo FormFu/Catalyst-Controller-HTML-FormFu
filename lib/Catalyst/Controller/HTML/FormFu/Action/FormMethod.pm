@@ -1,4 +1,4 @@
-package Catalyst::Controller::HTML::FormFu::Action::Method;
+package Catalyst::Controller::HTML::FormFu::Action::FormMethod;
 
 use strict;
 use warnings;
