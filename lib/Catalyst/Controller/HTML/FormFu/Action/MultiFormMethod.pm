@@ -15,7 +15,7 @@ sub execute {
 
     return $self->NEXT::execute(@_)
       unless exists $self->attributes->{ActionClass}
-      && $self->attributes->{ActionClass}[0] eq $config->{method_action};
+      && $self->attributes->{ActionClass}[0] eq $config->{multiform_method_action};
 
     my $multi = $controller->_multiform;
 

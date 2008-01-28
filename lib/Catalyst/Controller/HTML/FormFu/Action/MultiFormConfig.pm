@@ -15,7 +15,7 @@ sub execute {
 
     return $self->NEXT::execute(@_)
       unless exists $self->attributes->{ActionClass}
-      && $self->attributes->{ActionClass}[0] eq $config->{config_action};
+      && $self->attributes->{ActionClass}[0] eq $config->{multiform_config_action};
 
     my $multi = $controller->_multiform;
     my @files = grep {length} split /\s+/, $self->{_attr_params}->[0] || '';

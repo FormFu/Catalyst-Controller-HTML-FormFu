@@ -34,7 +34,7 @@ sub _setup {
     my $self = shift;
     my ($c)  = @_;
 
-    my $self_config = $self->config->{'Controller::HTML::FormFu'} || {};
+    my $self_config   = $self->config->{'Controller::HTML::FormFu'} || {};
     my $parent_config = $c->config->{'Controller::HTML::FormFu'} || {};
 
     my %defaults = (
@@ -101,7 +101,7 @@ sub _form {
 sub _multiform {
     my $self = shift;
     
-    my $multi = HTML::FormFu::Multi->new({
+    my $multi = HTML::FormFu::MultiForm->new({
         %{ $self->_html_formfu_config->{constructor} },
         ( @_ ? %{ $_[0] } : () ),
     });
