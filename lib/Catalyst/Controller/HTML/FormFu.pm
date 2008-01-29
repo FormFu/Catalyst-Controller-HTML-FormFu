@@ -58,6 +58,8 @@ sub _setup {
         
         context_stash => 'context',
         
+        model_stash => {},
+        
         constructor   => {},
         config_callback  => 1,
         config_file_ext  => '.yml',
@@ -163,7 +165,13 @@ sub _common_construction {
     my $context_stash = $config->{context_stash};
     $form->stash->{$context_stash} = $self->{c};
     weaken( $form->stash->{$context_stash} );
-    
+
+    my $model_stash = $config->model_stash;
+
+    for my $model ( keys %$model_stash ) {
+        $form->stash->{$model} = $self->{c}->model( $model_stash->{$model} );
+    }
+
     return;
 }
 
