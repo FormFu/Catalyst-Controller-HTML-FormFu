@@ -60,7 +60,9 @@ sub _setup {
         
         model_stash => {},
         
-        constructor   => {},
+        constructor           => {},
+        multiform_constructor => {},
+        
         config_callback  => 1,
         config_file_ext  => '.yml',
         config_file_path => $c->path_to( 'root', 'forms' ),
@@ -105,6 +107,7 @@ sub _multiform {
     
     my $multi = HTML::FormFu::MultiForm->new({
         %{ $self->_html_formfu_config->{constructor} },
+        %{ $self->_html_formfu_config->{multiform_constructor} },
         ( @_ ? %{ $_[0] } : () ),
     });
     
