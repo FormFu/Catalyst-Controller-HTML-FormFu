@@ -169,7 +169,7 @@ sub _common_construction {
     $form->stash->{$context_stash} = $self->{c};
     weaken( $form->stash->{$context_stash} );
 
-    my $model_stash = $config->model_stash;
+    my $model_stash = $config->{model_stash};
 
     for my $model ( keys %$model_stash ) {
         $form->stash->{$model} = $self->{c}->model( $model_stash->{$model} );
