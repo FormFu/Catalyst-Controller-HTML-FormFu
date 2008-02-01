@@ -62,4 +62,20 @@ sub _load_form : Private {
     };
 }
 
+sub file_upload : Chained('multiform') : Args(0) : MultiFormConfig {
+    my ( $self, $c ) = @_;
+
+    my $multi = $c->stash->{multiform};
+
+    if ( $multi->complete ) {
+        my $params = $multi->current_form->params;
+
+        $c->stash->{results} = join "\n", map {
+            sprintf "%s length: %s", $_, $params->{$_}->size
+        } keys %$params;
+
+        $c->stash->{message} = 'Complete';
+    }
+}
+
 1;
