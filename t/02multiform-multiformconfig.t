@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 13;
 
 use lib 't/lib';
 use Test::WWW::Mechanize::Catalyst 'TestApp';
@@ -15,6 +15,8 @@ $mech->get_ok('http://localhost/multiform/formconfig');
 my ($form) = $mech->forms;
 
 ok($form);
+
+is( $form->attr('id'), 'formconfig' );
 
 ok( $form->find_input('page1') );
 
@@ -33,6 +35,8 @@ ok($form);
 
 undef $uri;
 $uri = $form->action;
+
+is( $form->attr('id'), 'formconfig' );
 
 ok( $form->find_input('page2') );
 ok( $form->find_input('_multiform') );
