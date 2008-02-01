@@ -70,9 +70,20 @@ sub file_upload : Chained('multiform') : Args(0) : MultiFormConfig {
     if ( $multi->complete ) {
         my $params = $multi->current_form->params;
 
-        $c->stash->{results} = join "\n", map {
-            sprintf "%s length: %s", $_, $params->{$_}->size
-        } keys %$params;
+        $c->stash->{results} = '';
+
+        for ( keys %$params ) {
+            my $upload = $params->{$_};
+
+            my $size     = $upload->size;
+            my $length   = length $upload->slurp;
+            my $filename = $upload->filename;
+            my $type     = $upload->type;
+
+            $c->stash->{results} .= <<END;
+param: $_, size: $size, length: $length, filename: $filename, type: $type
+END
+        }
 
         $c->stash->{message} = 'Complete';
     }
