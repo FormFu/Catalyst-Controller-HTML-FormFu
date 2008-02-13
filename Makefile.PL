@@ -14,6 +14,7 @@ requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
 test_requires 'Catalyst::View::TT';
 test_requires 'Template';
 test_requires 'Test::WWW::Mechanize::Catalyst';
+test_requires 'Test::WWW::Mechanize' => '1.16'; # post_ok came in 1.16
 
 license 'perl';
 
