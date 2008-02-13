@@ -11,6 +11,8 @@ requires 'NEXT';
 requires 'Scalar::Util';
 requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
 
+test_requires 'Catalyst::Action::RenderView';
+test_requires 'Catalyst::Plugin::ConfigLoader';
 test_requires 'Catalyst::View::TT';
 test_requires 'Template';
 test_requires 'Test::WWW::Mechanize::Catalyst';
