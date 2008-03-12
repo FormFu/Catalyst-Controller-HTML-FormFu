@@ -225,14 +225,23 @@ Catalyst::Controller::HTML::FormFu
     
     use base 'Catalyst::Controller::HTML::FormFu';
     
+    sub index : Local {
+        my ( $self, $c ) = @_;
+        
+        # doesn't use an Attribute to make a form
+        # can get an empty form from $self->form()
+        
+        my $form = $self->form();
+    }
+    
     sub foo : Local : Form {
         my ( $self, $c ) = @_;
         
         # using the Form attribute is equivalent to:
         #
-        # my $form = HTML::FormFu->new;
+        # my $form = $self->form;
         #
-        # $form->query( $c->request );
+        # $form->process;
         # 
         # $c->stash->{form} = $form;
     }
@@ -242,11 +251,11 @@ Catalyst::Controller::HTML::FormFu
         
         # using the FormConfig attribute is equivalent to:
         #
-        # my $form = HTML::FormFu->new;
+        # my $form = $self->form;
         #
         # $form->load_config_file('root/forms/my/controller/bar.yml');
         #
-        # $form->process( $c->request );
+        # $form->process;
         #
         # $c->stash->{form} = $form;
         #
@@ -254,7 +263,7 @@ Catalyst::Controller::HTML::FormFu
         
         my $form = $c->stash->{form};
         
-        if ( $form->submitted && !$form->has_errors ) {
+        if ( $form->submitted_and_valid ) {
             do_something();
         }
     }
@@ -264,11 +273,11 @@ Catalyst::Controller::HTML::FormFu
         
         # using the FormConfig attribute with an argument is equivalent to:
         #
-        # my $form = HTML::FormFu->new;
+        # my $form = $self->form;
         #
         # $form->load_config_file('root/forms/my_config.yml');
         #
-        # $form->process( $c->request );
+        # $form->process;
         #
         # $c->stash->{form} = $form;
         #
@@ -276,7 +285,7 @@ Catalyst::Controller::HTML::FormFu
         
         my $form = $c->stash->{form};
         
-        if ( $form->submitted && !$form->has_errors ) {
+        if ( $form->submitted_and_valid ) {
             do_something();
         }
     }
@@ -286,11 +295,11 @@ Catalyst::Controller::HTML::FormFu
         
         # using the FormConfig attribute with an argument is equivalent to:
         #
-        # my $form = HTML::FormFu->new;
+        # my $form = $self->form;
         #
         # $form->populate( $c->load_form );
         #
-        # $form->process( $c->request );
+        # $form->process;
         #
         # $c->stash->{form} = $form;
         #
@@ -298,7 +307,7 @@ Catalyst::Controller::HTML::FormFu
         
         my $form = $c->stash->{form};
         
-        if ( $form->submitted && !$form->has_errors ) {
+        if ( $form->submitted_and_valid ) {
             do_something();
         }
     }
