@@ -5,11 +5,11 @@ use warnings;
 use base qw( Catalyst::Controller Class::Accessor::Fast );
 
 use HTML::FormFu;
-use HTML::FormFu::MultiForm;
+eval "use HTML::FormFu::MultiForm"; # ignore errors
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
-our $VERSION = '0.02000';
+our $VERSION = '0.03000';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
@@ -447,7 +447,6 @@ instance is replaced with the result of passing the C<DIRS> arguments to
 L<Catalyst/path_to>.
 Don't use qoutationmarks as they would become part of the path.
 
-
 Default value: 1
 
 =head2 config_file_path
@@ -490,6 +489,21 @@ default_action_use_name => 1 leads to
 
 default_action_use_path => 1 leads to
     $form->action = /foo/bar/1
+
+=haed2 model_stash
+
+Arguments: \%stash_keys_to_model_names
+
+Used to place Catalyst models on the form stash.
+
+If it's being used to make a L<DBIx::Class> schema available for
+L<HTML::FormFu::Model::DBIC/options_from_model>, for C<Select> and other
+Group-type elements - then the hash-key must be C<schema>. For example, if
+your schema model class is C<MyApp::Model::MySchema>, you would set
+C<model_stash> like so:
+
+    model_stash:
+      schema: MySchema
 
 =head2 context_stash
 

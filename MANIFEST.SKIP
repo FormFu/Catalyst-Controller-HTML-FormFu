@@ -1,4 +1,9 @@
-^lib/Catalyst/Action
+# not ready yet for live
+^t\/02multiform
+^t\/multiform
+
+# Komodo project file
+\.kpf$
 
 # Eclipse workspace file
 ^\.project$

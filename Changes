@@ -1,3 +1,8 @@
+0.03000 2008-06-19
+
+	- Documented 'model_stash' option.
+	- New Multi* actions - not documented yet - need further testing.
+
 0.02000 2007-12-12
 
 	- Only set INCLUDE_PATH if it's not already set, and if 'root/formfu' 
