@@ -131,6 +131,8 @@ sub _common_construction {
                      { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg;
                     s{__path_to\(\s*(.+?)\s*\)__}
                      { $self->{c}->path_to( split( '\s*,\s*', $1 ) ) }eg;
+                    s{__config\((.+?)\)__}
+                     { $self->{c}->config->{$1}  }eg;
                 }
             });
             

@@ -1,3 +1,5 @@
+    - Add __config()__ callback
+
 0.03000 2008-06-19
 
 	- Documented 'model_stash' option.
