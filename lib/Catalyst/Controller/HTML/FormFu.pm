@@ -6,6 +6,8 @@ use base qw( Catalyst::Controller Class::Accessor::Fast );
 
 use HTML::FormFu;
 eval "use HTML::FormFu::MultiForm"; # ignore errors
+use Config::Any;
+use Regexp::Assemble;
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
@@ -64,7 +66,6 @@ sub _setup {
         multiform_constructor => {},
         
         config_callback  => 1,
-        config_file_ext  => '.yml',
         config_file_path => $c->path_to( 'root', 'forms' ),
     );
     
@@ -81,6 +82,14 @@ sub _setup {
     
     $args{constructor}{query_type} ||= 'Catalyst';
     
+    # build regexp of file extensions
+    my $regex_builder = Regexp::Assemble->new;
+    
+    map { $regex_builder->add($_) } Config::Any->extensions;
+    
+    $args{_file_ext_regex} = $regex_builder->re;
+    
+    # save config for use by action classes
     $self->_html_formfu_config( \%args );
     
     # add controller methods
@@ -121,7 +130,17 @@ sub _common_construction {
     
     croak "form or multi arg required" if !defined $form;
     
+    $form->query( $self->{c}->request );
+    
     my $config = $self->_html_formfu_config;
+    
+    if ( exists $config->{config_file_ext} ) {
+        warn <<WARNING;
+Configuration setting 'config_file_ext' has been removed.
+We now use Config::Any's load_stems() which automatically finds files with
+known file extensions.
+WARNING
+    }
     
     if ( $config->{config_callback} ) {
             $form->config_callback({

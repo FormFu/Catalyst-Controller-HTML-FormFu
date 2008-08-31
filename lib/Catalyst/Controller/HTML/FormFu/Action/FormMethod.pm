@@ -29,7 +29,7 @@ sub execute {
         }
     }
     
-    $form->process( $c->request );
+    $form->process;
     
     $c->stash->{ $config->{form_stash} } = $form;
     

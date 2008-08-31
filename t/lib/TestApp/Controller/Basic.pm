@@ -20,6 +20,12 @@ sub form : Chained('basic') : Args(0) : Form {
 
 sub formconfig : Chained('basic') : Args(0) : FormConfig { }
 
+sub formconfig_conf_ext
+    : Chained('basic')
+    : Args(0)
+    : FormConfig('basic/formconfig_conf_ext')
+{ }
+
 sub formmethod : Chained('basic') : Args(0) : FormMethod('_load_form') { }
 
 sub _load_form : Private {

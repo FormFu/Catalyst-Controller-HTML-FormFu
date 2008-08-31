@@ -19,7 +19,7 @@ sub execute {
 
     my $multi = $controller->_multiform;
     
-    $multi->query( $c->request );
+    $multi->process;
     
     $c->stash->{ $config->{multiform_stash} } = $multi;
     

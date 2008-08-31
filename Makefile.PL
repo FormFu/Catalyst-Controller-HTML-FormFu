@@ -8,6 +8,7 @@ requires 'Config::Any';
 requires 'File::Spec';
 requires 'HTML::FormFu' => '0.03000';
 requires 'NEXT';
+requires 'Regexp::Assemble';
 requires 'Scalar::Util';
 requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
 

@@ -19,7 +19,7 @@ sub execute {
 
     my $form = $controller->_form;
     
-    $form->query( $c->request );
+    $form->process;
     
     $c->stash->{ $config->{form_stash} } = $form;
     

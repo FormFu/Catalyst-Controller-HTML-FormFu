@@ -21,8 +21,10 @@ sub execute {
     my @files = grep {length} split /\s+/, $self->{_attr_params}->[0] || '';
     
     if ( !@files ) {
-        push @files, $self->reverse . $config->{config_file_ext};
+        push @files, $self->reverse;
     }
+    
+    my $ext_regex = $config->{_file_ext_regex};
     
     for my $file (@files) {
         my $filepath = defined $config->{config_file_path}
@@ -32,10 +34,15 @@ sub execute {
         $c->log->debug( __PACKAGE__ ." searching for file '$filepath'" )
             if $c->debug;
         
-        $multi->load_config_file( $filepath );
+        if ( $file =~ m/ \. $ext_regex \z /x ) {
+            $multi->load_config_file( $filepath );
+        }
+        else {
+            $multi->load_config_filestem( $filepath );
+        }
     }
     
-    $multi->process( $c->request );
+    $multi->process;
     
     $c->stash->{ $config->{multiform_stash} } = $multi;
     

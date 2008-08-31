@@ -29,7 +29,7 @@ sub execute {
         }
     }
     
-    $multi->process( $c->request );
+    $multi->process;
     
     $c->stash->{ $config->{multiform_stash} } = $multi;
     

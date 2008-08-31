@@ -21,21 +21,28 @@ sub execute {
     my @files = grep {length} split /\s+/, $self->{_attr_params}->[0] || '';
     
     if ( !@files ) {
-        push @files, $self->reverse . $config->{config_file_ext};
+        push @files, $self->reverse;
     }
+    
+    my $ext_regex = $config->{_file_ext_regex};
     
     for my $file (@files) {
         my $filepath = defined $config->{config_file_path}
             ? $config->{config_file_path} ."/". $file
             : $file;
         
-        $c->log->debug( __PACKAGE__ ." searching for file '$filepath'" )
+        $c->log->debug( __PACKAGE__ ." loading config file '$filepath'" )
             if $c->debug;
         
-        $form->load_config_file( $filepath );
+        if ( $file =~ m/ \. $ext_regex \z /x ) {
+            $form->load_config_file( $filepath );
+        }
+        else {
+            $form->load_config_filestem( $filepath );
+        }
     }
     
-    $form->process( $c->request );
+    $form->process;
     
     $c->stash->{ $config->{form_stash} } = $form;
     
