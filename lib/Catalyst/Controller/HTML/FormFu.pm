@@ -5,7 +5,7 @@ use warnings;
 use base qw( Catalyst::Controller Class::Accessor::Fast );
 
 use HTML::FormFu;
-eval "use HTML::FormFu::MultiForm"; # ignore errors
+use HTML::FormFu::MultiForm;
 use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ weaken /;
