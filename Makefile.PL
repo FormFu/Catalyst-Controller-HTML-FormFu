@@ -4,6 +4,7 @@ name 'Catalyst-Controller-HTML-FormFu';
 all_from 'lib/Catalyst/Controller/HTML/FormFu.pm';
 
 requires 'Catalyst::Runtime' => '5.70';
+requires 'Catalyst::Component::InstancePerContext';
 requires 'Config::Any';
 requires 'File::Spec';
 requires 'HTML::FormFu' => '0.03000';

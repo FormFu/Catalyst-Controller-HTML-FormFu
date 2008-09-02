@@ -1,4 +1,18 @@
-    - Add __config()__ callback
+    - 'config_file_ext' config setting has been removed.
+    
+    - Automatically search for form config files with any extension
+      supported by Config::Any.
+    
+    - Add __config()__ callback.
+    
+    - Support filestems (without extensions) in the FormConfig('file')
+      attribute syntax.
+    
+    - Forms returned by form() now have the query set with the Catalyst
+      request object.
+    
+    - Switched from ACCEPT_CONTEXT to using
+      Catalyst::Component::InstancePerContext - recommended by mst.
 
 0.03000 2008-06-19
 

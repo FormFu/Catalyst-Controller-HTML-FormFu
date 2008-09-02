@@ -2,7 +2,9 @@ package Catalyst::Controller::HTML::FormFu;
 
 use strict;
 use warnings;
-use base qw( Catalyst::Controller Class::Accessor::Fast );
+use Moose  qw( extends with );
+extends 'Catalyst::Controller', 'Class::Accessor::Fast';
+with 'Catalyst::Component::InstancePerContext';
 
 use HTML::FormFu;
 use HTML::FormFu::MultiForm;
@@ -16,10 +18,12 @@ $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
 
-sub ACCEPT_CONTEXT {
+sub build_per_context_instance {
     my ( $self, $c ) = @_;
     
-    return bless { %$self, c => $c }, ref($self);
+    $self->{c} = $c;
+    
+    return $self;
 }
 
 sub new {
@@ -33,11 +37,10 @@ sub new {
 }
 
 sub _setup {
-    my $self = shift;
-    my ($c)  = @_;
+    my ( $self, $app ) = @_;
 
     my $self_config   = $self->config->{'Controller::HTML::FormFu'} || {};
-    my $parent_config = $c->config->{'Controller::HTML::FormFu'} || {};
+    my $parent_config = $app->config->{'Controller::HTML::FormFu'} || {};
 
     my %defaults = (
         form_method   => 'form',
@@ -66,12 +69,12 @@ sub _setup {
         multiform_constructor => {},
         
         config_callback  => 1,
-        config_file_path => $c->path_to( 'root', 'forms' ),
+        config_file_path => $app->path_to( 'root', 'forms' ),
     );
     
     my %args = ( %defaults, %$parent_config, %$self_config );
     
-    my $local_path = $c->path_to('root','formfu');
+    my $local_path = $app->path_to('root','formfu');
     
     if ( !exists $args{constructor}{tt_args}
         || !exists $args{constructor}{tt_args}{INCLUDE_PATH}
