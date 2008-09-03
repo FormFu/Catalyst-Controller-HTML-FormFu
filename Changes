@@ -13,6 +13,9 @@
     
     - Switched from ACCEPT_CONTEXT to using
       Catalyst::Component::InstancePerContext - recommended by mst.
+    
+    - Changed config examples to Config::General, to match Catalyst's
+      core documentation.
 
 0.03000 2008-06-19
 

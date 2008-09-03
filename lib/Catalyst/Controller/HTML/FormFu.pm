@@ -277,7 +277,7 @@ Catalyst::Controller::HTML::FormFu
         #
         # my $form = $self->form;
         #
-        # $form->load_config_file('root/forms/my/controller/bar.yml');
+        # $form->load_config_filestem('root/forms/my/controller/bar');
         #
         # $form->process;
         #
@@ -299,7 +299,7 @@ Catalyst::Controller::HTML::FormFu
         #
         # my $form = $self->form;
         #
-        # $form->load_config_file('root/forms/my_config.yml');
+        # $form->load_config_filestem('root/forms/my_config');
         #
         # $form->process;
         #
@@ -377,10 +377,11 @@ or your application config.
     
     MyApp->config( 'Controller::HTML::FormFu' => \%my_values );
     
-    # or, in myapp.yml
+    # or, in myapp.conf
     
-    ---
-    'Controller::HTML::FormFu': {  }
+    <Controller::HTML::FormFu>
+        default_action_use_path 1
+    </Controller::HTML::FormFu>
 
 =head2 form_method
 
@@ -480,14 +481,6 @@ C<FormConfig> action controller.
 
 Default Value: C<< $c->path_to( 'root', 'forms' ) >>
 
-=head2 config_file_ext
-
-Set the default file extension used by the Config() action attribute. This 
-setting is appended to both explicit config filenames, and auto-generated 
-filenames.
-
-Default value: C<.yml>.
-
 =head2 default_action_use_name
 
 If set to a true value the action for the form will be set to the currently 
@@ -505,13 +498,14 @@ were code inside the path.
 Default value: C<false>.
 
 Example:
+
     action: /foo/bar
     called uri contains: /foo/bar/1
-
-default_action_use_name => 1 leads to
+    
+    # default_action_use_name => 1 leads to:
     $form->action = /foo/bar
-
-default_action_use_path => 1 leads to
+    
+    # default_action_use_path => 1 leads to:
     $form->action = /foo/bar/1
 
 =haed2 model_stash
@@ -526,8 +520,11 @@ Group-type elements - then the hash-key must be C<schema>. For example, if
 your schema model class is C<MyApp::Model::MySchema>, you would set
 C<model_stash> like so:
 
-    model_stash:
-      schema: MySchema
+    <Controller::HTML::FormFu>
+        <model_stash>
+            schema MySchema
+        </model_stash>
+    </Controller::HTML::FormFu>
 
 =head2 context_stash
 
@@ -552,6 +549,13 @@ then setting L</languages_from_context>
 If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which 
 provides it's own C<localize> method, you can set L<localize_from_context> to 
 use that method for formfu's localization.
+
+=head1 DEPRECATED CONFIG SETTINGS
+
+=head2 config_file_ext
+
+This is now unnecessary, and has been removed. Config files are now searched
+for, with any file extension supported by Config::Any.
 
 =head1 CAVEATS
 
