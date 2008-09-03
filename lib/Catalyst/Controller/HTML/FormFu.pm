@@ -7,7 +7,7 @@ extends 'Catalyst::Controller', 'Class::Accessor::Fast';
 with 'Catalyst::Component::InstancePerContext';
 
 use HTML::FormFu;
-use HTML::FormFu::MultiForm;
+eval "use HTML::FormFu::MultiForm"; # ignore errors
 use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ weaken /;
