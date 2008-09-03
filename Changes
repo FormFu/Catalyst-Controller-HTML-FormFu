@@ -1,3 +1,5 @@
+0.03004 2008-09-03
+
     - 'config_file_ext' config setting has been removed.
     
     - Automatically search for form config files with any extension
