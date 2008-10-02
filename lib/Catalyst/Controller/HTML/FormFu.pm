@@ -69,7 +69,6 @@ sub _setup {
         multiform_constructor => {},
         
         config_callback  => 1,
-        config_file_path => $app->path_to( 'root', 'forms' ),
     );
     
     my %args = ( %defaults, %$parent_config, %$self_config );
@@ -84,6 +83,22 @@ sub _setup {
     }
     
     $args{constructor}{query_type} ||= 'Catalyst';
+    
+    # handle config_file_path
+    if ( exists $args{config_file_path } ) {
+        warn <<'DEPRECATED';
+config_file_path configuration setting is deprecated,
+use $config->{constructor}{config_file_path} instead.
+DEPRECATED
+        
+        my $path = delete $args{config_file_path};
+        
+        $args{constructor}{config_file_path} = $path;
+    }
+    
+    if ( !exists $args{constructor}{config_file_path} ) {
+        $args{constructor}{config_file_path} = $app->path_to( 'root', 'forms' );
+    }
     
     # build regexp of file extensions
     my $regex_builder = Regexp::Assemble->new;
@@ -508,7 +523,7 @@ Example:
     # default_action_use_path => 1 leads to:
     $form->action = /foo/bar/1
 
-=haed2 model_stash
+=head2 model_stash
 
 Arguments: \%stash_keys_to_model_names
 

@@ -27,18 +27,14 @@ sub execute {
     my $ext_regex = $config->{_file_ext_regex};
     
     for my $file (@files) {
-        my $filepath = defined $config->{config_file_path}
-            ? $config->{config_file_path} ."/". $file
-            : $file;
-        
-        $c->log->debug( __PACKAGE__ ." loading config file '$filepath'" )
+        $c->log->debug( __PACKAGE__ ." loading config file '$file'" )
             if $c->debug;
         
         if ( $file =~ m/ \. $ext_regex \z /x ) {
-            $form->load_config_file( $filepath );
+            $form->load_config_file( $file );
         }
         else {
-            $form->load_config_filestem( $filepath );
+            $form->load_config_filestem( $file );
         }
     }
     
