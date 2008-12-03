@@ -1,6 +1,5 @@
 # not ready yet for live
-^t\/02multiform
-^t\/multiform
+^t\/multiform-file-upload.t
 
 # Komodo project file
 \.kpf$
