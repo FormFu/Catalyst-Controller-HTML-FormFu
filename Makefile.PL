@@ -23,5 +23,4 @@ test_requires 'Test::WWW::Mechanize' => '1.16'; # post_ok came in 1.16
 
 license 'perl';
 
-auto_install();
 &WriteAll;
