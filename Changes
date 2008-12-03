@@ -1,5 +1,8 @@
-0.03005
+0.03006 2008-12-03
 
+    - Deprecated config setting $config->{config_file_path}
+      use $config->{constructor}{config_file_path} instead.
+    
     - Bumped HTML-FormFu prereq - need 0.03004 for load_config_filestem()
       support.
 
