@@ -7,7 +7,7 @@ requires 'Catalyst::Runtime' => '5.70';
 requires 'Catalyst::Component::InstancePerContext';
 requires 'Config::Any';
 requires 'File::Spec';
-requires 'HTML::FormFu' => '0.03006';
+requires 'HTML::FormFu' => '0.03007';
 requires 'NEXT';
 requires 'Moose';
 requires 'Regexp::Assemble';
