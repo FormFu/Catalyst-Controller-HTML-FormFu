@@ -7,7 +7,7 @@ requires 'Catalyst::Runtime' => '5.70';
 requires 'Catalyst::Component::InstancePerContext';
 requires 'Config::Any';
 requires 'File::Spec';
-requires 'HTML::FormFu' => '0.03004';
+requires 'HTML::FormFu' => '0.03006';
 requires 'NEXT';
 requires 'Moose';
 requires 'Regexp::Assemble';
@@ -17,6 +17,7 @@ requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::ConfigLoader';
 test_requires 'Catalyst::View::TT';
+test_requires 'Config::General';
 test_requires 'Template';
 test_requires 'Test::WWW::Mechanize::Catalyst';
 test_requires 'Test::WWW::Mechanize' => '1.16'; # post_ok came in 1.16
