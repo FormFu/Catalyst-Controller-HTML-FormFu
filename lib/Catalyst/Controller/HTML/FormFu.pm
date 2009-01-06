@@ -13,7 +13,7 @@ use Regexp::Assemble;
 use Scalar::Util qw/ weaken /;
 use Carp qw/ croak /;
 
-our $VERSION = '0.03007';
+our $VERSION = '0.03008';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
@@ -256,7 +256,7 @@ __END__
 
 =head1 NAME
 
-Catalyst::Controller::HTML::FormFu
+Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 
 =head1 SYNOPSIS
 
