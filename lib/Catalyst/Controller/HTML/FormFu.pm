@@ -10,7 +10,7 @@ use HTML::FormFu;
 eval "use HTML::FormFu::MultiForm"; # ignore errors
 use Config::Any;
 use Regexp::Assemble;
-use Scalar::Util qw/ weaken /;
+use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
 
 our $VERSION = '0.03008';
@@ -173,7 +173,8 @@ WARNING
                 }
             });
             
-            weaken( $self->{c} );
+            weaken( $self->{c} )
+                if !isweak( $self->{c} );
     }
     
     if ( $config->{languages_from_context} ) {
