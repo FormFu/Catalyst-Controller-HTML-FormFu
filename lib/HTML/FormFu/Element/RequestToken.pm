@@ -12,7 +12,8 @@ __PACKAGE__->mk_item_accessors ( qw(expiration_time session_key context) );
 sub new {
   my $self = shift->next::method(@_);
   my %params = @_;
-use Data::Dumper; die Dumper(@_);
+  my $c = $self->form->stash->{'context'};
+  use Data::Dumper; $c->log->debug(Dumper $self->expiration_time);
   $self->session_key('__token');
   $self->context('context');
   $self->name('_token');
@@ -63,7 +64,6 @@ sub get_token {
   $token .= $chars[int(rand()*36)] for(0..15);
   $c->session->{$self->session_key} ||= [];
   push(@{$c->session->{$self->session_key}}, [$token, time + $self->expiration_time]);
-  $c->log->debug($self->session_key);
   $self->expire_token;
   return $token;
 }

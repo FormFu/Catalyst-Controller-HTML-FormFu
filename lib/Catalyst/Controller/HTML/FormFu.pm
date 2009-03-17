@@ -17,7 +17,7 @@ our $VERSION = '0.03008';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
-
+	
 sub build_per_context_instance {
     my ( $self, $c ) = @_;
     
@@ -43,6 +43,10 @@ sub _setup {
     my $parent_config = $app->config->{'Controller::HTML::FormFu'} || {};
 
     my %defaults = (
+        request_token_enable => 0,
+        request_token_field_name => '_token',
+        request_token_session_key => '__token',
+        request_token_expiration_time => 3600,
         form_method   => 'form',
         form_stash    => 'form',
         form_attr     => 'Form',
@@ -118,14 +122,22 @@ DEPRECATED
 
 sub _form {
     my $self = shift;
-    
+    my $config = $self->_html_formfu_config;
     my $form = HTML::FormFu->new({
         %{ $self->_html_formfu_config->{constructor} },
         ( @_ ? %{ $_[0] } : () ),
     });
     
     $self->_common_construction( $form );
-    
+
+    if( $config->{request_token_enable} ) {
+      $form->plugins({ type => 'RequestToken', 
+                       context => $config->{context_stash}, 
+                       field_name => $config->{request_token_field_name}, 
+                       session_key => $config->{request_token_session_key}, 
+                       expiration_time => $config->{request_token_expiration_time} });
+    }
+
     return $form;
 }
 
@@ -176,7 +188,7 @@ WARNING
             weaken( $self->{c} )
                 if !isweak( $self->{c} );
     }
-    
+
     if ( $config->{languages_from_context} ) {
         $form->languages( $self->{c}->languages );
     }
@@ -208,7 +220,7 @@ WARNING
     my $context_stash = $config->{context_stash};
     $form->stash->{$context_stash} = $self->{c};
     weaken( $form->stash->{$context_stash} );
-
+    
     my $model_stash = $config->{model_stash};
 
     for my $model ( keys %$model_stash ) {
@@ -572,6 +584,20 @@ use that method for formfu's localization.
 
 This is now unnecessary, and has been removed. Config files are now searched
 for, with any file extension supported by Config::Any.
+
+=head2 request_token_enable
+
+=head2 request_token_field_name
+
+Defaults to C<_token>.
+
+=head2 request_token_session_key
+
+Defaults to C<__token>.
+
+=head2 request_token_expiration_time
+
+Defaults to C<3600>.
 
 =head1 CAVEATS
 
