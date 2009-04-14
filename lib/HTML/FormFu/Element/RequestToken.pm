@@ -13,7 +13,6 @@ sub new {
   my $self = shift->next::method(@_);
   my %params = @_;
   my $c = $self->form->stash->{'context'};
-  use Data::Dumper; $c->log->debug(Dumper $self->expiration_time);
   $self->session_key('__token');
   $self->context('context');
   $self->name('_token');
