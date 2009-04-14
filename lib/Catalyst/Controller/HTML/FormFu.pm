@@ -2,37 +2,37 @@ package Catalyst::Controller::HTML::FormFu;
 
 use strict;
 use warnings;
-use Moose  qw( extends with );
+use Moose qw( extends with );
 extends 'Catalyst::Controller', 'Class::Accessor::Fast';
 with 'Catalyst::Component::InstancePerContext';
 
 use HTML::FormFu;
-eval "use HTML::FormFu::MultiForm"; # ignore errors
+eval "use HTML::FormFu::MultiForm";    # ignore errors
 use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
 
 our $VERSION = '0.03008';
-$VERSION = eval $VERSION;  # see L<perlmodstyle>
+$VERSION = eval $VERSION;              # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
-	
+
 sub build_per_context_instance {
     my ( $self, $c ) = @_;
-    
+
     $self->{c} = $c;
-    
+
     return $self;
 }
 
 sub new {
     my $class = shift;
-    my ($c) = @_;
-    my $self = $class->NEXT::new(@_);
-    
-    $self->_setup( $c );
-    
+    my ($c)   = @_;
+    my $self  = $class->NEXT::new(@_);
+
+    $self->_setup($c);
+
     return $self;
 }
 
@@ -40,80 +40,84 @@ sub _setup {
     my ( $self, $app ) = @_;
 
     my $self_config   = $self->config->{'Controller::HTML::FormFu'} || {};
-    my $parent_config = $app->config->{'Controller::HTML::FormFu'} || {};
+    my $parent_config = $app->config->{'Controller::HTML::FormFu'}  || {};
 
     my %defaults = (
-        request_token_enable => 0,
-        request_token_field_name => '_token',
-        request_token_session_key => '__token',
+        request_token_enable          => 0,
+        request_token_field_name      => '_token',
+        request_token_session_key     => '__token',
         request_token_expiration_time => 3600,
-        form_method   => 'form',
-        form_stash    => 'form',
-        form_attr     => 'Form',
-        config_attr   => 'FormConfig',
-        method_attr   => 'FormMethod',
-        form_action   => "Catalyst::Controller::HTML::FormFu::Action::Form",
-        config_action => "Catalyst::Controller::HTML::FormFu::Action::FormConfig",
-        method_action => "Catalyst::Controller::HTML::FormFu::Action::FormMethod",
-        
-        multiform_method        => 'multiform',
-        multiform_stash         => 'multiform',
-        multiform_attr          => 'MultiForm',
-        multiform_config_attr   => 'MultiFormConfig',
-        multiform_method_attr   => 'MultiFormMethod',
-        multiform_action        => "Catalyst::Controller::HTML::FormFu::Action::MultiForm",
-        multiform_config_action => "Catalyst::Controller::HTML::FormFu::Action::MultiFormConfig",
-        multiform_method_action => "Catalyst::Controller::HTML::FormFu::Action::MultiFormMethod",
-        
+        form_method                   => 'form',
+        form_stash                    => 'form',
+        form_attr                     => 'Form',
+        config_attr                   => 'FormConfig',
+        method_attr                   => 'FormMethod',
+        form_action => "Catalyst::Controller::HTML::FormFu::Action::Form",
+        config_action =>
+            "Catalyst::Controller::HTML::FormFu::Action::FormConfig",
+        method_action =>
+            "Catalyst::Controller::HTML::FormFu::Action::FormMethod",
+
+        multiform_method      => 'multiform',
+        multiform_stash       => 'multiform',
+        multiform_attr        => 'MultiForm',
+        multiform_config_attr => 'MultiFormConfig',
+        multiform_method_attr => 'MultiFormMethod',
+        multiform_action =>
+            "Catalyst::Controller::HTML::FormFu::Action::MultiForm",
+        multiform_config_action =>
+            "Catalyst::Controller::HTML::FormFu::Action::MultiFormConfig",
+        multiform_method_action =>
+            "Catalyst::Controller::HTML::FormFu::Action::MultiFormMethod",
+
         context_stash => 'context',
-        
+
         model_stash => {},
-        
+
         constructor           => {},
         multiform_constructor => {},
-        
-        config_callback  => 1,
+
+        config_callback => 1,
     );
-    
+
     my %args = ( %defaults, %$parent_config, %$self_config );
-    
-    my $local_path = $app->path_to('root','formfu');
-    
-    if ( !exists $args{constructor}{tt_args}
-        || !exists $args{constructor}{tt_args}{INCLUDE_PATH}
-        && -d $local_path )
+
+    my $local_path = $app->path_to( 'root', 'formfu' );
+
+    if (   !exists $args{constructor}{tt_args}
+        || !exists $args{constructor}{tt_args}{INCLUDE_PATH} && -d $local_path )
     {
         $args{constructor}{tt_args}{INCLUDE_PATH} = [$local_path];
     }
-    
+
     $args{constructor}{query_type} ||= 'Catalyst';
-    
+
     # handle config_file_path
-    if ( exists $args{config_file_path } ) {
+    if ( exists $args{config_file_path} ) {
         warn <<'DEPRECATED';
 config_file_path configuration setting is deprecated,
 use $config->{constructor}{config_file_path} instead.
 DEPRECATED
-        
+
         my $path = delete $args{config_file_path};
-        
+
         $args{constructor}{config_file_path} = $path;
     }
-    
+
     if ( !exists $args{constructor}{config_file_path} ) {
         $args{constructor}{config_file_path} = $app->path_to( 'root', 'forms' );
     }
-    
+
     # build regexp of file extensions
     my $regex_builder = Regexp::Assemble->new;
-    
+
     map { $regex_builder->add($_) } Config::Any->extensions;
-    
+
     $args{_file_ext_regex} = $regex_builder->re;
-    
+
     # save config for use by action classes
     $self->_html_formfu_config( \%args );
-    
+
     # add controller methods
     no strict 'refs';
     *{"$args{form_method}"}      = \&_form;
@@ -121,21 +125,22 @@ DEPRECATED
 }
 
 sub _form {
-    my $self = shift;
+    my $self   = shift;
     my $config = $self->_html_formfu_config;
-    my $form = HTML::FormFu->new({
-        %{ $self->_html_formfu_config->{constructor} },
-        ( @_ ? %{ $_[0] } : () ),
-    });
-    
-    $self->_common_construction( $form );
+    my $form   = HTML::FormFu->new( {
+            %{ $self->_html_formfu_config->{constructor} },
+            ( @_ ? %{ $_[0] } : () ),
+        } );
 
-    if( $config->{request_token_enable} ) {
-      $form->plugins({ type => 'RequestToken', 
-                       context => $config->{context_stash}, 
-                       field_name => $config->{request_token_field_name}, 
-                       session_key => $config->{request_token_session_key}, 
-                       expiration_time => $config->{request_token_expiration_time} });
+    $self->_common_construction($form);
+
+    if ( $config->{request_token_enable} ) {
+        $form->plugins( {
+                type            => 'RequestToken',
+                context         => $config->{context_stash},
+                field_name      => $config->{request_token_field_name},
+                session_key     => $config->{request_token_session_key},
+                expiration_time => $config->{request_token_expiration_time} } );
     }
 
     return $form;
@@ -143,27 +148,27 @@ sub _form {
 
 sub _multiform {
     my $self = shift;
-    
-    my $multi = HTML::FormFu::MultiForm->new({
-        %{ $self->_html_formfu_config->{constructor} },
-        %{ $self->_html_formfu_config->{multiform_constructor} },
-        ( @_ ? %{ $_[0] } : () ),
-    });
-    
-    $self->_common_construction( $multi );
-    
+
+    my $multi = HTML::FormFu::MultiForm->new( {
+            %{ $self->_html_formfu_config->{constructor} },
+            %{ $self->_html_formfu_config->{multiform_constructor} },
+            ( @_ ? %{ $_[0] } : () ),
+        } );
+
+    $self->_common_construction($multi);
+
     return $multi;
 }
 
 sub _common_construction {
     my ( $self, $form ) = @_;
-    
+
     croak "form or multi arg required" if !defined $form;
-    
+
     $form->query( $self->{c}->request );
-    
+
     my $config = $self->_html_formfu_config;
-    
+
     if ( exists $config->{config_file_ext} ) {
         warn <<WARNING;
 Configuration setting 'config_file_ext' has been removed.
@@ -171,9 +176,9 @@ We now use Config::Any's load_stems() which automatically finds files with
 known file extensions.
 WARNING
     }
-    
+
     if ( $config->{config_callback} ) {
-            $form->config_callback({
+        $form->config_callback( {
                 plain_value => sub {
                     return if !defined $_;
                     s{__uri_for\((.+?)\)__}
@@ -182,45 +187,44 @@ WARNING
                      { $self->{c}->path_to( split( '\s*,\s*', $1 ) ) }eg;
                     s{__config\((.+?)\)__}
                      { $self->{c}->config->{$1}  }eg;
-                }
-            });
-            
-            weaken( $self->{c} )
-                if !isweak( $self->{c} );
+                    }
+            } );
+
+        weaken( $self->{c} )
+            if !isweak( $self->{c} );
     }
 
     if ( $config->{languages_from_context} ) {
         $form->languages( $self->{c}->languages );
     }
-    
+
     if ( $config->{localize_from_context} ) {
         $form->add_localize_object( $self->{c} );
     }
-    
+
     if ( $config->{default_action_use_name} ) {
         my $action = $self->{c}->uri_for( $self->{c}->{action}->name );
-        
-        $self->{c}->log->debug(
-            "FormFu - Setting default action by name: $action"
-        ) if $self->{c}->debug;
-        
-        $form->action( $action );
+
+        $self->{c}
+            ->log->debug( "FormFu - Setting default action by name: $action" )
+            if $self->{c}->debug;
+
+        $form->action($action);
     }
     elsif ( $config->{default_action_use_path} ) {
-        my $action =
-            $self->{c}->{request}->base . $self->{c}->{request}->path;
-        
-        $self->{c}->log->debug(
-            "FormFu - Setting default action by path: $action"
-        ) if $self->{c}->debug;
-        
-        $form->action( $action );
+        my $action = $self->{c}->{request}->base . $self->{c}->{request}->path;
+
+        $self->{c}
+            ->log->debug( "FormFu - Setting default action by path: $action" )
+            if $self->{c}->debug;
+
+        $form->action($action);
     }
-    
+
     my $context_stash = $config->{context_stash};
     $form->stash->{$context_stash} = $self->{c};
     weaken( $form->stash->{$context_stash} );
-    
+
     my $model_stash = $config->{model_stash};
 
     for my $model ( keys %$model_stash ) {
@@ -236,16 +240,18 @@ sub create_action {
 
     my $config = $self->_html_formfu_config;
 
-    for my $type (qw/ 
+    for my $type (
+        qw/
         form
         config
         method
         multiform
         multiform_config
-        multiform_method /)
+        multiform_method /
+        )
     {
         my $attr = $config->{"${type}_attr"};
-        
+
         if ( exists $args{attributes}{$attr} ) {
             $args{_attr_params} = delete $args{attributes}{$attr};
         }
@@ -255,7 +261,7 @@ sub create_action {
         else {
             next;
         }
-        
+
         push @{ $args{attributes}{ActionClass} }, $config->{"${type}_action"};
         last;
     }

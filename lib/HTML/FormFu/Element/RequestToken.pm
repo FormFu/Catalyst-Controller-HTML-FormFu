@@ -7,64 +7,66 @@ use Class::C3;
 
 use HTML::FormFu::Util qw( process_attrs );
 
-__PACKAGE__->mk_item_accessors ( qw(expiration_time session_key context) );
+__PACKAGE__->mk_item_accessors(qw(expiration_time session_key context));
 
 sub new {
-  my $self = shift->next::method(@_);
-  my %params = @_;
-  my $c = $self->form->stash->{'context'};
-  $self->session_key('__token');
-  $self->context('context');
-  $self->name('_token');
-  $self->expiration_time(3600);
-  $self->default( $self->get_token );
-  $self->constraints( [qw(RequestToken Required)]);
-  return $self;
+    my $self   = shift->next::method(@_);
+    my %params = @_;
+    my $c      = $self->form->stash->{'context'};
+    $self->session_key('__token');
+    $self->context('context');
+    $self->name('_token');
+    $self->expiration_time(3600);
+    $self->default( $self->get_token );
+    $self->constraints( [qw(RequestToken Required)] );
+    return $self;
 }
 
-
 sub verify_token {
-  my $self = shift;
-  return $self->remove_token($self->form->param_value($self->name));
+    my $self = shift;
+    return $self->remove_token( $self->form->param_value( $self->name ) );
 }
 
 sub remove_token {
-  my $self = shift;
-  my $c = $self->form->stash->{$self->context};
-  my $token = shift;
-  my @token;
-  my $found = 0;
-  for(@{$c->session->{$self->session_key} || [] }) {
-    if($_->[0] ne $token) {
-      push(@token, $_);
-    } else {
-      $found = 1;
+    my $self  = shift;
+    my $c     = $self->form->stash->{ $self->context };
+    my $token = shift;
+    my @token;
+    my $found = 0;
+    for ( @{ $c->session->{ $self->session_key } || [] } ) {
+        if ( $_->[0] ne $token ) {
+            push( @token, $_ );
+        }
+        else {
+            $found = 1;
+        }
     }
-  }
-  $c->session->{$self->session_key} = \@token;
-  return $found;
+    $c->session->{ $self->session_key } = \@token;
+    return $found;
 }
 
 sub expire_token {
-  my $self = shift;
-  my $c = $self->form->stash->{$self->context};
-  my @token;
-  for(@{$c->session->{$self->session_key} || [] }) {
-    push(@token, $_) if ($_->[1] > time);
-  }
-  $c->session->{$self->session_key} = \@token;
+    my $self = shift;
+    my $c    = $self->form->stash->{ $self->context };
+    my @token;
+    for ( @{ $c->session->{ $self->session_key } || [] } ) {
+        push( @token, $_ ) if ( $_->[1] > time );
+    }
+    $c->session->{ $self->session_key } = \@token;
 }
 
 sub get_token {
-  my $self = shift;
-  my $token;
-  my $c = $self->form->stash->{$self->context};
-  my @chars = ('a'...'z',0..9);
-  $token .= $chars[int(rand()*36)] for(0..15);
-  $c->session->{$self->session_key} ||= [];
-  push(@{$c->session->{$self->session_key}}, [$token, time + $self->expiration_time]);
-  $self->expire_token;
-  return $token;
+    my $self = shift;
+    my $token;
+    my $c = $self->form->stash->{ $self->context };
+    my @chars = ( 'a' ... 'z', 0 .. 9 );
+    $token .= $chars[ int( rand() * 36 ) ] for ( 0 .. 15 );
+    $c->session->{ $self->session_key } ||= [];
+    push(
+        @{ $c->session->{ $self->session_key } },
+        [ $token, time + $self->expiration_time ] );
+    $self->expire_token;
+    return $token;
 }
 
 1;

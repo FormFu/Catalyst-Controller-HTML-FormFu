@@ -3,8 +3,6 @@ use warnings;
 
 use Test::More skip_all => "no multi form support yet";
 
-
-
 use lib 't/lib';
 use Test::WWW::Mechanize::Catalyst 'TestApp';
 
@@ -49,8 +47,7 @@ my $hidden_value = $form->value('_multiform');
 
 $mech->post_ok(
     $uri,
-    {
-        _multiform => $hidden_value,
+    {   _multiform => $hidden_value,
         page2      => 'bar',
     } );
 

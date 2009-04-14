@@ -27,10 +27,8 @@ my $uri = $form->action;
 my $response = $mech->post(
     $uri,
     Content_Type => 'form-data',
-    Content => [
-        image1 => ['t/btn_88x31_built.png'],
-        ],
-    );
+    Content      => [ image1 => ['t/btn_88x31_built.png'], ],
+);
 
 is( $mech->status, '200' );
 
@@ -56,16 +54,20 @@ my $hidden_value = $form->value('_multiform');
 $mech->post(
     $uri,
     Content_Type => 'form-data',
-    Content => [
+    Content      => [
         _multiform => $hidden_value,
-        image2 => ['t/btn_120x50_built.png'],
-        ],
-    );
+        image2     => ['t/btn_120x50_built.png'],
+    ],
+);
 
 # check final output
 
 $mech->content_contains('Complete');
 
-$mech->content_contains('param: image1, size: 2517, length: 2517, filename: btn_88x31_built.png, type: image/png');
+$mech->content_contains(
+    'param: image1, size: 2517, length: 2517, filename: btn_88x31_built.png, type: image/png'
+);
 
-$mech->content_contains('param: image2, size: 3826, length: 3826, filename: btn_120x50_built.png, type: image/png');
+$mech->content_contains(
+    'param: image2, size: 3826, length: 3826, filename: btn_120x50_built.png, type: image/png'
+);

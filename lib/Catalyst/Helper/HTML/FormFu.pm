@@ -9,19 +9,18 @@ use Carp qw/ croak /;
 
 sub mk_stuff {
     my ( $self, $helper, $dir ) = @_;
-    
+
     my @files = HTML::FormFu::Deploy::file_list();
-    
-    my $form_dir = File::Spec->catdir(
-        $helper->{base}, 'root', ( defined $dir ? $dir : 'formfu' )
-    );
-    
-    $helper->mk_dir( $form_dir ) unless -d $form_dir;
-    
+
+    my $form_dir = File::Spec->catdir( $helper->{base}, 'root',
+        ( defined $dir ? $dir : 'formfu' ) );
+
+    $helper->mk_dir($form_dir) unless -d $form_dir;
+
     for my $filename (@files) {
         my $path = File::Spec->catfile( $form_dir, $filename );
         my $data = HTML::FormFu::Deploy::file_source($filename);
-        
+
         $helper->mk_file( $path, $data );
     }
     return;

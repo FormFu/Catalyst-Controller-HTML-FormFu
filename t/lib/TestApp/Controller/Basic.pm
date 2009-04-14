@@ -15,25 +15,21 @@ sub form : Chained('basic') : Args(0) : Form {
 
     my $form = $c->stash->{form};
 
-    $form->element({ name => 'basic_form' });
+    $form->element( { name => 'basic_form' } );
 }
 
-sub formconfig : Chained('basic') : Args(0) : FormConfig { }
+sub formconfig : Chained('basic') : Args(0) : FormConfig {
+}
 
-sub formconfig_conf_ext
-    : Chained('basic')
-    : Args(0)
-    : FormConfig('basic/formconfig_conf_ext')
-{ }
+sub formconfig_conf_ext : Chained('basic') : Args(0) :
+    FormConfig('basic/formconfig_conf_ext') {
+}
 
-sub formmethod : Chained('basic') : Args(0) : FormMethod('_load_form') { }
+sub formmethod : Chained('basic') : Args(0) : FormMethod('_load_form') {
+}
 
 sub _load_form : Private {
-    return {
-        element => {
-            name => 'basic_formmethod',
-        }
-    };
+    return { element => { name => 'basic_formmethod', } };
 }
 
 1;

@@ -6,6 +6,7 @@ use base 'Catalyst::Controller::HTML::FormFu';
 
 __PACKAGE__->config->{namespace} = '';
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('RenderView') {
+}
 
 1;
