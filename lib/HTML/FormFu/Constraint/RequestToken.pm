@@ -6,7 +6,7 @@ use strict;
 
 sub constrain_value {
     my ( $self, $value ) = @_;
-    return $self->parent->verify_token;
-
+    
+    return $self->parent->remove_token( $value );
 }
 1;

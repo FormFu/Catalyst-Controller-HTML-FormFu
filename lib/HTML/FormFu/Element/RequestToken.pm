@@ -6,6 +6,7 @@ use base 'HTML::FormFu::Element::Text';
 use Class::C3;
 
 use HTML::FormFu::Util qw( process_attrs );
+use Carp qw( croak );
 
 __PACKAGE__->mk_item_accessors(qw(expiration_time session_key context));
 
@@ -40,7 +41,18 @@ sub value {
 
 sub verify_token {
     my $self = shift;
-    return $self->remove_token( $self->form->param_value( $self->name ) );
+    
+    my $form = $self->form;
+    
+    croak "verify_token() can only be called if form is submitted"
+        if !$form->submitted;
+    
+    my $field_name = $self->name;
+    
+    croak "verify_token() can only be called after \$form->process() has completed"
+        if !$form->valid( $field_name );
+    
+    return $self->remove_token( $form->param_value( $field_name ) );
 }
 
 sub remove_token {
