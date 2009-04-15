@@ -1,6 +1,10 @@
-0.03008 XXX
+0.04001 2008-04-15
 
-    - Add description to pod (RT #41568)
+    - New RequestToken feature to stop double-submissions of data.
+    
+    - Silence "Reference is already weak" warnings.
+    
+    - Add distribution description to pod (RT #41568)
 
 0.03007 2008-12-08
 

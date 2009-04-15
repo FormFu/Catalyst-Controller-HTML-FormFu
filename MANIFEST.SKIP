@@ -4,6 +4,8 @@
 # Komodo project file
 \.kpf$
 
+^\.perltidyrc$
+
 # Eclipse workspace file
 ^\.project$
 ^\.includepath$

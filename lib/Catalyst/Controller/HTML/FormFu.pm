@@ -13,7 +13,7 @@ use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
 
-our $VERSION = '0.03008';
+our $VERSION = '0.04000';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
@@ -584,14 +584,10 @@ If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which
 provides it's own C<localize> method, you can set L<localize_from_context> to 
 use that method for formfu's localization.
 
-=head1 DEPRECATED CONFIG SETTINGS
-
-=head2 config_file_ext
-
-This is now unnecessary, and has been removed. Config files are now searched
-for, with any file extension supported by Config::Any.
-
 =head2 request_token_enable
+
+If true, adds an instance of L<HTML::FormFu::Plugin::RequestToken> to every
+form, to stop accidental double-submissions of data.
 
 =head2 request_token_field_name
 
@@ -604,6 +600,13 @@ Defaults to C<__token>.
 =head2 request_token_expiration_time
 
 Defaults to C<3600>.
+
+=head1 DEPRECATED CONFIG SETTINGS
+
+=head2 config_file_ext
+
+This is now unnecessary, and has been removed. Config files are now searched
+for, with any file extension supported by Config::Any.
 
 =head1 CAVEATS
 
