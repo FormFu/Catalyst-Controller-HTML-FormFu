@@ -13,7 +13,7 @@ use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
 
-our $VERSION = '0.04000';
+our $VERSION = '0.04001';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
