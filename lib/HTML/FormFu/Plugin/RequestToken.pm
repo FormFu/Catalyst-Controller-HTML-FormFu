@@ -10,7 +10,7 @@ sub process {
     my $self = shift;
     return if ( $self->form->get_all_element( { name => $self->field_name } ) );
     my $c = $self->form->stash->{'context'};
-
+    $c->log->debug('PLUGIN '.$self->expiration_time);
     $self->form->elements( [ {
                 type            => 'RequestToken',
                 name            => $self->field_name,

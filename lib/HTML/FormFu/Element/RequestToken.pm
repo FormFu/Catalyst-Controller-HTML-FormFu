@@ -59,6 +59,7 @@ sub get_token {
     my $self = shift;
     my $token;
     my $c = $self->form->stash->{ $self->context };
+    $c->log->debug('ELEMENT ' . $self->expiration_time);
     my @chars = ( 'a' ... 'z', 0 .. 9 );
     $token .= $chars[ int( rand() * 36 ) ] for ( 0 .. 15 );
     $c->session->{ $self->session_key } ||= [];
