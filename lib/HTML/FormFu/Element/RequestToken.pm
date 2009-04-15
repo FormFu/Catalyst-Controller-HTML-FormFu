@@ -9,6 +9,8 @@ use HTML::FormFu::Util qw( process_attrs );
 
 __PACKAGE__->mk_item_accessors(qw(expiration_time session_key context));
 
+*default = \&value;
+
 sub new {
     my $self   = shift->next::method(@_);
     my %params = @_;
@@ -17,9 +19,23 @@ sub new {
     $self->context('context');
     $self->name('_token');
     $self->expiration_time(3600);
-    $self->default( $self->get_token );
     $self->constraints( [qw(RequestToken Required)] );
     return $self;
+}
+
+sub value {
+    my $self = shift;
+    
+    if (@_) {
+        $self->{value} = shift;
+        return $self;
+    }
+    
+    if ( !defined $self->{value} ) {
+        return $self->{value} = $self->get_token;
+    }
+    
+    return $self->{value};
 }
 
 sub verify_token {
