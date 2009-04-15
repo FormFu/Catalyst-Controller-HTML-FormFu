@@ -7,9 +7,12 @@ __PACKAGE__->mk_item_accessors(
     qw(context field_name session_key expiration_time));
 
 sub process {
-    my $self = shift;
-    return if ( $self->form->get_all_element( { name => $self->field_name } ) );
+    my ($self) = @_;
+    
+    return if $self->form->get_all_element( { name => $self->field_name } );
+    
     my $c = $self->form->stash->{'context'};
+    
     $self->form->elements( [ {
                 type            => 'RequestToken',
                 name            => $self->field_name,
@@ -17,6 +20,8 @@ sub process {
                 context         => $self->context,
                 session_key     => $self->session_key
             } ] );
+
+    return;
 }
 
 1;
