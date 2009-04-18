@@ -12,6 +12,7 @@ use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
+use MRO::Compat;
 
 our $VERSION = '0.04001';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
@@ -29,7 +30,7 @@ sub build_per_context_instance {
 sub new {
     my $class = shift;
     my ($c)   = @_;
-    my $self  = $class->NEXT::new(@_);
+    my $self  = $class->next::method(@_);
 
     $self->_setup($c);
 

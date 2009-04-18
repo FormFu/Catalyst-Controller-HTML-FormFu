@@ -5,7 +5,7 @@ use warnings;
 use base qw( Catalyst::Action );
 
 use Config::Any;
-use NEXT;
+use MRO::Compat;
 
 sub execute {
     my $self = shift;
@@ -13,7 +13,7 @@ sub execute {
 
     my $config = $controller->_html_formfu_config;
 
-    return $self->NEXT::execute(@_)
+    return $self->next::method(@_)
         unless exists $self->attributes->{ActionClass}
             && $self->attributes->{ActionClass}[0] eq $config->{form_action};
 
@@ -23,7 +23,7 @@ sub execute {
 
     $c->stash->{ $config->{form_stash} } = $form;
 
-    $self->NEXT::execute(@_);
+    $self->next::method(@_);
 }
 
 1;

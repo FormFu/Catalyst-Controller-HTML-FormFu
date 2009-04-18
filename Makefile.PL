@@ -8,7 +8,7 @@ requires 'Catalyst::Component::InstancePerContext';
 requires 'Config::Any';
 requires 'File::Spec';
 requires 'HTML::FormFu' => '0.04001';
-requires 'NEXT';
+requires 'MRO::Compat' => '0.10';
 requires 'Moose';
 requires 'Regexp::Assemble';
 requires 'Scalar::Util';

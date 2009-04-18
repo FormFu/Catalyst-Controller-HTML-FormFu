@@ -1,3 +1,5 @@
+    - Switch to use MRO::Compat
+
 0.04001 2009-04-15
 
     - New RequestToken feature to stop double-submissions of data.
