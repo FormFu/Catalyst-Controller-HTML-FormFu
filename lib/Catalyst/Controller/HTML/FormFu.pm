@@ -14,7 +14,7 @@ use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
 use MRO::Compat;
 
-our $VERSION = '0.04002';
+our $VERSION = '0.04003';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
 
 __PACKAGE__->mk_accessors(qw( _html_formfu_config ));
