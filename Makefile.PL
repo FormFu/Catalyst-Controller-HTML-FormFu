@@ -15,7 +15,7 @@ requires 'Scalar::Util';
 requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
 
 test_requires 'Catalyst::Action::RenderView';
-test_requires 'Catalyst::Plugin::ConfigLoader';
+test_requires 'Catalyst::Plugin::ConfigLoader' => 0.23; # stops warnings under Catalyst 5.80001
 test_requires 'Catalyst::View::TT';
 test_requires 'Config::General';
 test_requires 'Template';
