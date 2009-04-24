@@ -15,6 +15,7 @@ __PACKAGE__->mk_item_accessors(qw(expiration_time session_key context));
 sub new {
     my $self = shift->next::method(@_);
     
+    $self->field_type('hidden');
     $self->session_key('__token');
     $self->context('context');
     $self->name('_token');
