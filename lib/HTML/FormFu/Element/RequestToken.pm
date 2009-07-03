@@ -127,7 +127,7 @@ HTML::FormFu::Element::RequestToken - Hidden text field which contains a unique 
 =head1 DESCRIPTION
 
 This field can prevent CSRF attacks. It contains a random token. After submission the token is checked with the token which is stored in the session of the current user.
-See L<Catalyst::Controller::HTML::FormFu/Using Tokens> for a convenient way how to use it.
+See L<Catalyst::Controller::HTML::FormFu/USING TOKENS> for a convenient way how to use it.
 
 =head1 ATTRIBUTES
 

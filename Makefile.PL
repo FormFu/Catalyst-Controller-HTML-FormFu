@@ -3,7 +3,7 @@ use inc::Module::Install;
 name 'Catalyst-Controller-HTML-FormFu';
 all_from 'lib/Catalyst/Controller/HTML/FormFu.pm';
 
-requires 'Catalyst::Runtime' => '5.70';
+requires 'Catalyst::Runtime' => '5.71001';
 requires 'Catalyst::Component::InstancePerContext';
 requires 'Config::Any';
 requires 'File::Spec';
@@ -13,6 +13,7 @@ requires 'Moose';
 requires 'Regexp::Assemble';
 requires 'Scalar::Util';
 requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
+requires 'namespace::autoclean';
 
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::ConfigLoader' => 0.23; # stops warnings under Catalyst 5.80001

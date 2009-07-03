@@ -24,7 +24,7 @@ like( $form, qr/value="\w+"/, "RequestToken field has a random value" );
 package 
   C::Fake;
 
-sub new { return blessed shift }
+sub new { return bless({}, shift) }
 
 sub session { return {} }
 

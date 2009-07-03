@@ -1,10 +1,5 @@
 package Catalyst::Controller::HTML::FormFu;
-
-use strict;
-use warnings;
-use Moose qw( extends with );
-extends 'Catalyst::Controller', 'Class::Accessor::Fast';
-with 'Catalyst::Component::InstancePerContext';
+use Moose;
 
 use HTML::FormFu;
 eval "use HTML::FormFu::MultiForm";    # ignore errors
@@ -14,10 +9,15 @@ use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
 use MRO::Compat;
 
-our $VERSION = '0.04003';
+use namespace::autoclean;
+
+extends 'Catalyst::Controller';
+with 'Catalyst::Component::InstancePerContext';
+
+our $VERSION = '0.04004';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
 
-__PACKAGE__->mk_accessors(qw( _html_formfu_config ));
+has _html_formfu_config => ( is => 'rw' );
 
 sub build_per_context_instance {
     my ( $self, $c ) = @_;
@@ -27,19 +27,12 @@ sub build_per_context_instance {
     return $self;
 }
 
-sub new {
-    my $class = shift;
-    my ($c)   = @_;
-    my $self  = $class->next::method(@_);
+sub BUILD {}
 
-    $self->_setup($c);
+after BUILD => sub {
+    my ( $self ) = @_;
 
-    return $self;
-}
-
-sub _setup {
-    my ( $self, $app ) = @_;
-
+    my $app = $self->_app;
     my $self_config   = $self->config->{'Controller::HTML::FormFu'} || {};
     my $parent_config = $app->config->{'Controller::HTML::FormFu'}  || {};
 
@@ -123,7 +116,7 @@ DEPRECATED
     no strict 'refs';
     *{"$args{form_method}"}      = \&_form;
     *{"$args{multiform_method}"} = \&_multiform;
-}
+};
 
 sub _form {
     my $self   = shift;
@@ -401,6 +394,10 @@ return value.
 Note that when using this method, the form's L<query|HTML::FormFu/query> 
 method is not populated with the Catalyst request object.
 
+=head1 USING TOKENS
+
+
+
 =head1 CUSTOMIZATION
 
 You can set your own config settings, using either your controller config 
@@ -588,7 +585,7 @@ use that method for formfu's localization.
 =head2 request_token_enable
 
 If true, adds an instance of L<HTML::FormFu::Plugin::RequestToken> to every
-form, to stop accidental double-submissions of data.
+form, to stop accidental double-submissions of data and to prevent CSRF attacks.
 
 =head2 request_token_field_name
 
