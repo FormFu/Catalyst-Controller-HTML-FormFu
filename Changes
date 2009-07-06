@@ -1,3 +1,11 @@
+0.05000 2009-07-06
+
+    - Fix RequestToken to be a hidden field.
+    
+    - Fix compatibility problem with moosified controllers.
+    
+    - use tests_recursive() so all tests are run correctly.
+
 0.04003 2009-04-20
 
     - Fix missing prereqs
