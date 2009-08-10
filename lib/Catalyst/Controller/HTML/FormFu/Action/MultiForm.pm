@@ -2,7 +2,7 @@ package Catalyst::Controller::HTML::FormFu::Action::MultiForm;
 
 use strict;
 use warnings;
-use base qw( Catalyst::Action );
+use base qw( Catalyst::Controller::HTML::FormFu::ActionBase::Form );
 
 use Config::Any;
 use MRO::Compat;
@@ -10,6 +10,11 @@ use MRO::Compat;
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
+
+    if ( $self->reverse =~ $self->_form_action_regex ) {
+        # don't load form again
+        return $self->next::method(@_);
+    }
 
     my $config = $controller->_html_formfu_config;
 
@@ -23,6 +28,7 @@ sub execute {
     $multi->process;
 
     $c->stash->{ $config->{multiform_stash} } = $multi;
+    $c->stash->{ $config->{form_stash} }      = $multi->current_form;
 
     $self->next::method(@_);
 }

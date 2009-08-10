@@ -10,11 +10,13 @@ sub multiform : Chained : CaptureArgs(0) {
     $c->stash->{template} = 'multiform.tt';
 }
 
-sub formconfig : Chained('multiform') : Args(0) : MultiFormConfig {
+sub formconfig : Chained('multiform') : Args(0) : MultiFormConfig { }
+
+sub formconfig_FORM_COMPLETE {
     my ( $self, $c ) = @_;
-
+    
     my $multi = $c->stash->{multiform};
-
+    
     if ( $multi->complete ) {
         my $params = $multi->current_form->params;
 
@@ -25,8 +27,9 @@ sub formconfig : Chained('multiform') : Args(0) : MultiFormConfig {
     }
 }
 
-sub formmethod : Chained('multiform') : Args(0) : MultiFormMethod('_load_form')
-{
+sub formmethod : Chained('multiform') : Args(0) : MultiFormMethod('_load_form') { }
+
+sub formmethod_FORM_COMPLETE {
     my ( $self, $c ) = @_;
 
     my $multi = $c->stash->{multiform};
@@ -55,7 +58,9 @@ sub _load_form : Private {
     };
 }
 
-sub file_upload : Chained('multiform') : Args(0) : MultiFormConfig {
+sub file_upload : Chained('multiform') : Args(0) : MultiFormConfig { }
+
+sub file_upload_FORM_COMPLETE {
     my ( $self, $c ) = @_;
 
     my $multi = $c->stash->{multiform};

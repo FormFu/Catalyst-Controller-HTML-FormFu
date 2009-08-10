@@ -1,3 +1,8 @@
 ---
 elements:
   - name: basic_formconfig
+    constraint:
+        - Required
+  
+  - type: Submit
+    name: submit

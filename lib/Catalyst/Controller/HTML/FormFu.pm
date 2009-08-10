@@ -374,6 +374,31 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
         # Must return a hash-ref suitable to be fed to $form->populate()
     }
 
+You can also use specially-named actions that will only be called under
+certain circumstances.
+
+    sub edit : Chained('group') : PathPart : Args(0) : FormConfig { }
+    
+    sub edit_FORM_VALID {
+        my ( $self, $c ) = @_;
+        
+        my $form  = $c->stash->{form};
+        my $group = $c->stash->{group};
+        
+        $form->model->update( $group );
+        
+        $c->response->redirect( $c->uri_for( '/group', $group->id ) );
+    }
+    
+    sub edit_FORM_NOT_SUBMITTED {
+        my ( $self, $c ) = @_;
+        
+        my $form  = $c->stash->{form};
+        my $group = $c->stash->{group};
+        
+        $form->model->default_values( $group );
+    }
+
 =head1 METHODS
 
 =head2 form
@@ -394,9 +419,103 @@ return value.
 Note that when using this method, the form's L<query|HTML::FormFu/query> 
 method is not populated with the Catalyst request object.
 
-=head1 USING TOKENS
+=head1 SPECIAL ACTION NAMES
 
+An example showing how a complicated action method can be broken down into
+smaller sections, making it clearer what code will be run, and when.
 
+    sub edit : Local : FormConfig {
+        my ( $self, $c ) = @_;
+        
+        my $form  = $c->stash->{form};
+        my $group = $c->stash->{group};
+        
+        $c->detach('/unauthorised') unless $c->user->can_edit( $group );
+        
+        if ( $form->submitted_and_valid ) {
+            $form->model->update( $group );
+            
+            $c->response->redirect( $c->uri_for('/group', $group->id ) );
+            return;
+        }
+        elsif ( !$form->submitted ) {
+            $form->model->default_values( $group );
+        }
+        
+        $self->_add_breadcrumbs_nav( $c, $group );
+    }
+
+Instead becomes...
+
+    sub edit : Local : FormConfig {
+        my ( $self, $c ) = @_;
+        
+        $c->detach('/unauthorised') unless $c->user->can_edit(
+            $c->stash->{group}
+        );
+    }
+    
+    sub edit_FORM_VALID {
+        my ( $self, $c ) = @_;
+        
+        my $group = $c->stash->{group};
+        
+        $c->stash->{form}->model->update( $group );
+        
+        $c->response->redirect( $c->uri_for('/group', $group->id ) );
+    }
+    
+    sub edit_FORM_NOT_SUBMITTED {
+        my ( $self, $c ) = @_;
+        
+        $c->stash->{form}->model->default_values(
+            $c->stash->{group}
+        );
+    }
+    
+    sub edit_FORM_RENDER {
+        my ( $self, $c ) = @_;
+        
+        $self->_add_breadcrumbs_nav( $c, $c->stash->{group} );
+    }
+
+For any action method that uses a C<Form>, C<FormConfig> or C<FormMethod>
+attribute, you can add extra methods that use the naming conventions below.
+
+These methods will be called after the original, plainly named action method.
+
+=head2 _FORM_VALID
+
+Run when the form has been submitted and has no errors.
+
+=head2 _FORM_SUBMITTED
+
+Run when the form has been submitted, regardless of whether or not there was
+errors.
+
+=head2 _FORM_COMPLETE
+
+For MultiForms, is run if the MultiForm is completed.
+
+=head2 _FORM_NOT_VALID
+
+Run when the form has been submitted and there were errors.
+
+=head2 _FORM_NOT_SUBMITTED
+
+Run when the form has not been submitted.
+
+=head2 _FORM_NOT_COMPLETE
+
+For MultiForms, is run if the MultiForm is not completed.
+
+=head2 _FORM_RENDER
+
+For normal C<Form> base classes, this subroutine is run after any of the
+other special methods, unless C<< $form->submitted_and_valid >> is true.
+
+For C<MultiForm> base classes, this subroutine is run after any of the other
+special methods, unless C<< $multi->complete >> is true.
 
 =head1 CUSTOMIZATION
 
