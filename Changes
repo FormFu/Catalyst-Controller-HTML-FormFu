@@ -1,3 +1,12 @@
+0.06000
+
+    - MultiForm actions now also always stash $multi->current_form
+      to $c->stash->{form}.
+      (key-name configurable via 'form_stash' config option).
+    
+    - New method suffixes such as "_FORM_VALID", "_FORM_SUBMITTED" to allow
+      blocks of code that will only be run under certain circumstances.
+
 0.05000 2009-07-06
 
     - Fix RequestToken to be a hidden field.

@@ -422,7 +422,7 @@ method is not populated with the Catalyst request object.
 =head1 SPECIAL ACTION NAMES
 
 An example showing how a complicated action method can be broken down into
-smaller sections, making it clearer what code will be run, and when.
+smaller sections, making it clearer which code will be run, and when.
 
     sub edit : Local : FormConfig {
         my ( $self, $c ) = @_;
