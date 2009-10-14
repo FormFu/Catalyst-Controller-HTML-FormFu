@@ -345,7 +345,7 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
     sub quux : Local : FormMethod('load_form') {
         my ( $self, $c ) = @_;
         
-        # using the FormConfig attribute with an argument is equivalent to:
+        # using the FormMethod attribute with an argument is equivalent to:
         #
         # my $form = $self->form;
         #
