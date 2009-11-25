@@ -1,4 +1,4 @@
-0.06000
+0.06000 2009-11-25
 
     - MultiForm actions now also always stash $multi->current_form
       to $c->stash->{form}.

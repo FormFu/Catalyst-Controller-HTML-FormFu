@@ -2,7 +2,7 @@ package Catalyst::Controller::HTML::FormFu;
 use Moose;
 
 use HTML::FormFu;
-eval "use HTML::FormFu::MultiForm";    # ignore errors
+use HTML::FormFu::MultiForm;
 use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
@@ -14,7 +14,7 @@ use namespace::autoclean;
 extends 'Catalyst::Controller';
 with 'Catalyst::Component::InstancePerContext';
 
-our $VERSION = '0.05000';
+our $VERSION = '0.06000';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
 
 has _html_formfu_config => ( is => 'rw' );
