@@ -1,4 +1,6 @@
 ---
+action: __uri_for(/foo)__
+
 elements:
   - name: basic_formconfig
     constraint:

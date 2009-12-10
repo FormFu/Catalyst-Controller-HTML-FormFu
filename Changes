@@ -1,3 +1,5 @@
+    - Test setting __uri_for(x)__ in a config file.
+
 0.06000 2009-11-25
 
     - MultiForm actions now also always stash $multi->current_form
