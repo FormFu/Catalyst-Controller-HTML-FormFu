@@ -1,5 +1,9 @@
 use inc::Module::Install;
 
+if ( -e 'MANIFEST.SKIP' ) {
+    system( 'pod2text lib/Catalyst/Controller/HTML/FormFu.pm > README' );
+}
+
 name 'Catalyst-Controller-HTML-FormFu';
 all_from 'lib/Catalyst/Controller/HTML/FormFu.pm';
 
