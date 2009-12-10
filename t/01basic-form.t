@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 3;
 
 use lib 't/lib';
 use Test::WWW::Mechanize::Catalyst 'TestApp';
@@ -13,7 +13,5 @@ $mech->get_ok('http://localhost/basic/form');
 my ($form) = $mech->forms;
 
 ok($form);
-
-like( $form->action, qr{/basic/form} );
 
 ok( $form->find_input('basic_form') );

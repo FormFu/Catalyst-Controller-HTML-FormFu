@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 use lib 't/lib';
 use Test::WWW::Mechanize::Catalyst 'TestApp';
@@ -9,6 +9,12 @@ use Test::WWW::Mechanize::Catalyst 'TestApp';
 my $mech = Test::WWW::Mechanize::Catalyst->new;
 
 $mech->get_ok('http://localhost/basic/formconfig');
+
+{
+    # test __uri_for()__ set in config file
+
+    like( $mech->response->content, qr{<label>[^<]+/uri_for</label>} );
+}
 
 my ($form) = $mech->forms;
 
