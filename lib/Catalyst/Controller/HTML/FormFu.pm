@@ -176,11 +176,16 @@ WARNING
                 plain_value => sub {
                     return if !defined $_;
                     s{__uri_for\((.+?)\)__}
-                     { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg;
+                     { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg
+                        if /__uri_for\(/;
+                    
                     s{__path_to\(\s*(.+?)\s*\)__}
-                     { $self->{c}->path_to( split( '\s*,\s*', $1 ) ) }eg;
+                     { $self->{c}->path_to( split( '\s*,\s*', $1 ) ) }eg
+                        if /__path_to\(/;
+                    
                     s{__config\((.+?)\)__}
-                     { $self->{c}->config->{$1}  }eg;
+                     { $self->{c}->config->{$1}  }eg
+                        if /__config\(/;
                     }
             } );
 
