@@ -8,74 +8,47 @@ use Class::C3;
 use HTML::FormFu::Util qw( process_attrs );
 use Carp qw( croak );
 
-__PACKAGE__->mk_item_accessors(qw(expiration_time session_key context));
-
-*default = \&value;
+__PACKAGE__->mk_item_accessors(qw(expiration_time session_key context limit message));
 
 sub new {
     my $self = shift->next::method(@_);
-    
+	
     $self->field_type('hidden');
     $self->session_key('__token');
     $self->context('context');
     $self->name('_token');
     $self->expiration_time(3600);
+    $self->limit(20);
+	$self->message('Form submission failed. Please try again.');
     $self->constraints( [qw(RequestToken Required)] );
-    
-    return $self;
+	
+	return $self;
 }
 
-sub value {
-    my $self = shift;
-    
-    if (@_) {
-        $self->{value} = shift;
-        return $self;
-    }
-    
-    if ( !defined $self->{value} ) {
-        return $self->{value} = $self->get_token;
-    }
-    
-    return $self->{value};
+sub process_value {
+	my ($self, $value) = @_;
+	return $self->verify_token($value) ? $value : $self->value($self->get_token)->value;
 }
 
 sub verify_token {
-    my ($self) = @_;
+    my ($self, $token) = @_;
+	
+	return undef unless($token);
     
     my $form = $self->form;
     
-    croak "verify_token() can only be called if form is submitted"
+    croak "verify_token() can only be called if form has been submitted"
         if !$form->submitted;
     
     my $field_name = $self->name;
     
-    croak "verify_token() can only be called after \$form->process() has completed"
-        if !$form->valid( $field_name );
-    
-    return $self->remove_token( $form->param_value( $field_name ) );
-}
-
-sub remove_token {
-    my ( $self, $token ) = @_;
-    
-    my $c = $self->form->stash->{ $self->context };
-    
-    my @token;
-    my $found = 0;
+	my $c = $self->form->stash->{ $self->context };
     
     for ( @{ $c->session->{ $self->session_key } || [] } ) {
-        if ( $_->[0] ne $token ) {
-            push( @token, $_ );
-        }
-        else {
-            $found = 1;
-        }
+        return 1 if ( $_->[0] eq $token );
     }
-    
-    $c->session->{ $self->session_key } = \@token;
-    
-    return $found;
+	
+    return undef;
 }
 
 sub expire_token {
@@ -88,6 +61,8 @@ sub expire_token {
         push( @token, $_ ) if ( $_->[1] > time );
     }
     
+	@token = splice(@token, -$self->limit, $self->limit)  if(@token > $self->limit);
+    
     $c->session->{ $self->session_key } = \@token;
 }
 
@@ -96,7 +71,7 @@ sub get_token {
     
     my $token;
     my $c = $self->form->stash->{ $self->context };
-    my @chars = ( 'a' ... 'z', 0 .. 9 );
+    my @chars = ( 'a' .. 'z', 0 .. 9 );
     
     $token .= $chars[ int( rand() * 36 ) ] for ( 0 .. 15 );
     
@@ -148,6 +123,18 @@ Time to life for a token in seconds. Defaults to C<3600>.
 
 Session key which is used to store the tokens. Defaults to C<__token>.
 
+=head2 limit
+
+Limit the number of tokens which are kept in the session. Defaults to 20.
+
+=head2 constraints
+
+Defaults to L<HTML::FormFu::Constraint::RequestToken> and L<HTML::FormFu::Constraint::Required>.
+
+=head2 message
+
+Set the error message.
+
 =head1 METHODS
 
 =head2 expire_token
@@ -158,15 +145,9 @@ This method looks in the session for expired tokens and removes them.
 
 Generates a new token and stores it in the stash.
 
-=head2 remove_token
-
-Removes a specific token from the session. Returns C<1> if the key was found. 
-C<0> otherwise.
-
 =head2 verify_token
 
-Checks whether a given token is already in the session. If it exists it is 
-removed and C<verify_token> returns C<1>. C<0> otherwise.
+Checks whether a given token is already in the session. Returns C<1> if it exists, C<0> otherwise.
 
 =head1 SEE ALSO
 

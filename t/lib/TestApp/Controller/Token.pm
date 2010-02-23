@@ -18,7 +18,8 @@ sub form : Chained('token') : Args(0) : Form {
 
     my $form = $c->stash->{form};
 
-    $form->elements( [ { name => 'basic_form' }, { type => "Submit" } ] );
+    $form->elements( [ { name => 'basic_form', constraint => ['Required'] }, { type => "Submit" } ] );
+	$form->process($c->req);
     if ( $form->submitted_and_valid ) {
         $c->res->body("VALID");
     }
@@ -28,4 +29,10 @@ sub dump_session : Local {
     my ( $self, $c ) = @_;
     $c->res->body( Dumper $c->session );
 }
+
+sub count_token : Local {
+	my ( $self, $c ) = @_;
+	$c->res->body( scalar @{ $c->session->{__token} || [] } );
+}
+
 1;

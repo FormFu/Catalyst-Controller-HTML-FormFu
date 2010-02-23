@@ -29,6 +29,7 @@ test_requires 'Config::General';
 test_requires 'Template';
 test_requires 'Test::WWW::Mechanize::Catalyst';
 test_requires 'Test::WWW::Mechanize' => '1.16'; # post_ok came in 1.16
+test_requires 'Test::More' => '0.92'; # done_testing
 
 license 'perl';
 
