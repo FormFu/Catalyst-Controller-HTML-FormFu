@@ -11,6 +11,7 @@ repository 'http://html-formfu.googlecode.com/svn/trunk/Catalyst-Controller-HTML
 
 requires 'Catalyst::Runtime' => '5.71001';
 requires 'Catalyst::Component::InstancePerContext';
+requires 'Class::C3';
 requires 'Config::Any';
 requires 'File::Spec';
 requires 'HTML::FormFu' => '0.04001';

@@ -1,3 +1,6 @@
+
+    - Incompatible Change: removed all previously deprecated methods.
+
 0.06001 2009-12-10
 
     - Test setting __uri_for(x)__ in a config file.
