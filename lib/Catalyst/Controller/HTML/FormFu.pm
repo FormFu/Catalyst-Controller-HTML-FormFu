@@ -14,7 +14,7 @@ use namespace::autoclean;
 extends 'Catalyst::Controller';
 with 'Catalyst::Component::InstancePerContext';
 
-our $VERSION = '0.08000';
+our $VERSION = '0.08001';
 $VERSION = eval $VERSION;              # see L<perlmodstyle>
 
 has _html_formfu_config => ( is => 'rw' );
