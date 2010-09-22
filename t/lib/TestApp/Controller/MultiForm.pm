@@ -74,12 +74,11 @@ sub file_upload_FORM_COMPLETE {
             my $upload = $params->{$_};
 
             my $size     = $upload->size;
-            my $length   = length $upload->slurp;
             my $filename = $upload->filename;
             my $type     = $upload->type;
 
             $c->stash->{results} .= <<END;
-param: $_, size: $size, length: $length, filename: $filename, type: $type
+param: $_, size: $size, filename: $filename, type: $type
 END
         }
 
