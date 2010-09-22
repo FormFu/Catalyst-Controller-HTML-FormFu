@@ -65,9 +65,9 @@ $mech->post(
 $mech->content_contains('Complete');
 
 $mech->content_contains(
-    'param: image1, size: 2517, length: 2517, filename: btn_88x31_built.png, type: image/png'
+    'param: image1, size: 2517, filename: btn_88x31_built.png, type: image/png'
 );
 
 $mech->content_contains(
-    'param: image2, size: 3826, length: 3826, filename: btn_120x50_built.png, type: image/png'
+    'param: image2, size: 3826, filename: btn_120x50_built.png, type: image/png'
 );
