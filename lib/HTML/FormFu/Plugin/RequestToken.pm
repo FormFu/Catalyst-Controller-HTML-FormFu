@@ -1,10 +1,12 @@
 package HTML::FormFu::Plugin::RequestToken;
+use Moose;
 
-use strict;
-use base 'HTML::FormFu::Plugin';
+extends 'HTML::FormFu::Plugin';
 
-__PACKAGE__->mk_item_accessors(
-    qw(context field_name session_key expiration_time));
+has context         => ( is => 'rw', traits  => ['Chained'] );
+has field_name      => ( is => 'rw', traits  => ['Chained'] );
+has session_key     => ( is => 'rw', traits  => ['Chained'] );
+has expiration_time => ( is => 'rw', traits  => ['Chained'] );
 
 sub process {
     my ($self) = @_;

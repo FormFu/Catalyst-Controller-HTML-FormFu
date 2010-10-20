@@ -1,39 +1,43 @@
 package HTML::FormFu::Element::RequestToken;
+use Moose;
 
-use strict;
-
-use base 'HTML::FormFu::Element::Text';
-use Class::C3;
+extends 'HTML::FormFu::Element::Text';
 
 use HTML::FormFu::Util qw( process_attrs );
 use Carp qw( croak );
 
-__PACKAGE__->mk_item_accessors(qw(expiration_time session_key context limit message));
+has expiration_time => ( is => 'rw', traits  => ['Chained'] );
+has session_key     => ( is => 'rw', traits  => ['Chained'] );
+has context         => ( is => 'rw', traits  => ['Chained'] );
+has limit           => ( is => 'rw', traits  => ['Chained'] );
+has message         => ( is => 'rw', traits  => ['Chained'] );
 
-sub new {
-    my $self = shift->next::method(@_);
-	
+sub BUILD {
+    my ( $self, $args ) = @_;
+
     $self->field_type('hidden');
     $self->session_key('__token');
     $self->context('context');
     $self->name('_token');
     $self->expiration_time(3600);
     $self->limit(20);
-	$self->message('Form submission failed. Please try again.');
+    $self->message('Form submission failed. Please try again.');
     $self->constraints( [qw(RequestToken Required)] );
-	
-	return $self;
-}
+
+    return;
+};
 
 sub process_value {
-	my ($self, $value) = @_;
-	return $self->verify_token($value) ? $value : $self->value($self->get_token)->value;
+    my ($self, $value) = @_;
+    
+    return $self->verify_token($value) ? $value
+                                       : $self->value($self->get_token)->value;
 }
 
 sub verify_token {
     my ($self, $token) = @_;
 	
-	return undef unless($token);
+    return undef unless($token);
     
     my $form = $self->form;
     
@@ -42,7 +46,7 @@ sub verify_token {
     
     my $field_name = $self->name;
     
-	my $c = $self->form->stash->{ $self->context };
+    my $c = $self->form->stash->{ $self->context };
     
     for ( @{ $c->session->{ $self->session_key } || [] } ) {
         return 1 if ( $_->[0] eq $token );
@@ -61,7 +65,7 @@ sub expire_token {
         push( @token, $_ ) if ( $_->[1] > time );
     }
     
-	@token = splice(@token, -$self->limit, $self->limit)  if(@token > $self->limit);
+    @token = splice(@token, -$self->limit, $self->limit)  if(@token > $self->limit);
     
     $c->session->{ $self->session_key } = \@token;
 }

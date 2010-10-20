@@ -1,19 +1,20 @@
 package HTML::FormFu::Constraint::RequestToken;
+use Moose;
 
-use base 'HTML::FormFu::Constraint';
+extends 'HTML::FormFu::Constraint';
 
-use strict;
-use warnings;
+sub BUILD {
+    my ( $self, $args ) = @_;
 
-sub new {
-	my $self = shift->next::method(@_);
-	$self->message($self->parent->message);
-	return $self;
+    $self->message($self->parent->message);
+
+    return;
 }
 
 sub constrain_value {
     my ( $self, $value ) = @_;
-    
+
     return $self->parent->verify_token( $value );
 }
+
 1;
