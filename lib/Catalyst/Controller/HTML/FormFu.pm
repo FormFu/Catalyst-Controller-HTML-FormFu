@@ -11,7 +11,11 @@ use MRO::Compat;
 
 use namespace::autoclean;
 
-extends 'Catalyst::Controller';
+# see https://rt.cpan.org/Ticket/Display.html?id=55780
+BEGIN {
+    extends 'Catalyst::Controller';
+}
+
 with 'Catalyst::Component::InstancePerContext';
 
 our $VERSION = '0.08002';
