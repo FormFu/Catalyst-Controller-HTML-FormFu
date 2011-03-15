@@ -27,6 +27,9 @@ sub build_per_context_instance {
     my ( $self, $c ) = @_;
 
     $self->{c} = $c;
+    
+    weaken( $self->{c} )
+        if !isweak( $self->{c} );
 
     return $self;
 }
