@@ -1,3 +1,11 @@
+0.09000 2011-03-29
+
+    - Fix mem leak
+    
+    - Resolve Moose extends/runtime bug RT #55780
+    
+    - fix RequestToken classes to work with new Moosified HTML-FormFu
+
 0.08002 2010-09-22
 
     - Incompatible Change: removed all previously deprecated methods.
