@@ -7,7 +7,7 @@ if ( -e 'MANIFEST.SKIP' ) {
 name 'Catalyst-Controller-HTML-FormFu';
 all_from 'lib/Catalyst/Controller/HTML/FormFu.pm';
 
-repository 'http://html-formfu.googlecode.com/svn/trunk/Catalyst-Controller-HTML-FormFu';
+repository 'git://github.com/fireartist/Catalyst-Controller-HTML-FormFu.git';
 
 requires 'Catalyst::Runtime' => '5.71001';
 requires 'Catalyst::Component::InstancePerContext';

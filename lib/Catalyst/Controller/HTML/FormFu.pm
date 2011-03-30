@@ -728,6 +728,13 @@ make any modifications to the form, such as adding or changing it's
 elements, you must call L<< $form->process|HTML::FormFu/process >> before 
 rendering the form.
 
+=head1 GITHUB REPOSITORY
+
+This module's sourcecode is maintained in a git repository at
+L<git://github.com/fireartist/Catalyst-Controller-HTML-FormFu.git>
+
+The project page is L<https://github.com/fireartist/Catalyst-Controller-HTML-FormFu>
+
 =head1 SEE ALSO
 
 L<HTML::FormFu>, L<Catalyst::Helper::HTML::FormFu>
