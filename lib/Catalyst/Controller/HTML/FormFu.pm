@@ -25,7 +25,7 @@ has _html_formfu_config => ( is => 'rw' );
 
 sub build_per_context_instance {
     my ( $self, $c ) = @_;
-
+    return $self unless(ref $c);
     $self->{c} = $c;
     
     weaken( $self->{c} )
