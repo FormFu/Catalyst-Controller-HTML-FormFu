@@ -11,12 +11,12 @@ repository 'git://github.com/fireartist/Catalyst-Controller-HTML-FormFu.git';
 
 requires 'Catalyst::Runtime' => '5.71001';
 requires 'Catalyst::Component::InstancePerContext';
-requires 'Class::C3';
 requires 'Config::Any';
 requires 'File::Spec';
 requires 'HTML::FormFu' => '0.04001';
 requires 'MRO::Compat' => '0.10';
 requires 'Moose';
+requires 'MooseX::ChainedAccessors' => '0.02';
 requires 'Regexp::Assemble';
 requires 'Scalar::Util';
 requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
