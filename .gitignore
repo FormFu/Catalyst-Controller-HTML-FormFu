@@ -1,0 +1,6 @@
+*.tar.gz
+Makefile.old
+META.yml
+MANIFEST
+inc/
+README
