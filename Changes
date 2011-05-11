@@ -1,3 +1,17 @@
+0.09002 2011-05-11
+
+    - fixes #67404 (Missing dependency on MooseX::ChainedAccessors)
+
+    - fixes #67571 (Minimum requirement for HTML::FormFu is 0.9002)
+      actually it just requires MooseX::ChainedAccessors
+
+    - hopefully fixes 539965f0-7b0f-11e0-b729-7181c0b02281
+
+0.09001 2011-05-10
+
+    - fixed problem with build_per_context_instance that caused errors
+      like http://paste.scsys.co.uk/102966
+
 0.09000 2011-03-29
 
     - Fix mem leak

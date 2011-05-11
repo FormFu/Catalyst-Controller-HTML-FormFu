@@ -1,30 +1,23 @@
 package HTML::FormFu::Element::RequestToken;
 use Moose;
+use MooseX::ChainedAccessors;
 
 extends 'HTML::FormFu::Element::Text';
 
 use HTML::FormFu::Util qw( process_attrs );
 use Carp qw( croak );
 
-has expiration_time => ( is => 'rw', traits  => ['Chained'] );
-has session_key     => ( is => 'rw', traits  => ['Chained'] );
-has context         => ( is => 'rw', traits  => ['Chained'] );
-has limit           => ( is => 'rw', traits  => ['Chained'] );
-has message         => ( is => 'rw', traits  => ['Chained'] );
+has expiration_time => ( is => 'rw', traits  => ['Chained'], default => 3600 );
+has session_key     => ( is => 'rw', traits  => ['Chained'], default => '__token' );
+has context         => ( is => 'rw', traits  => ['Chained'], default => 'context' );
+has limit           => ( is => 'rw', traits  => ['Chained'], default => 20 );
+has message         => ( is => 'rw', traits  => ['Chained'], default => 'Form submission failed. Please try again.' );
 
-sub BUILD {
-    my ( $self, $args ) = @_;
-
-    $self->field_type('hidden');
-    $self->session_key('__token');
-    $self->context('context');
+after BUILD => sub {
+    my $self = shift;
     $self->name('_token');
-    $self->expiration_time(3600);
-    $self->limit(20);
-    $self->message('Form submission failed. Please try again.');
-    $self->constraints( [qw(RequestToken Required)] );
-
-    return;
+    $self->constraints([qw(RequestToken Required)]);
+    $self->field_type('hidden');
 };
 
 sub process_value {
