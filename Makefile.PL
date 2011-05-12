@@ -8,13 +8,13 @@ name 'Catalyst-Controller-HTML-FormFu';
 all_from 'lib/Catalyst/Controller/HTML/FormFu.pm';
 
 repository 'git://github.com/fireartist/Catalyst-Controller-HTML-FormFu.git';
+bugtracker 'https://github.com/fireartist/Catalyst-Controller-HTML-FormFu/issues';
 
 requires 'Catalyst::Runtime' => '5.71001';
 requires 'Catalyst::Component::InstancePerContext';
 requires 'Config::Any';
 requires 'File::Spec';
-requires 'HTML::FormFu' => '0.04001';
-requires 'MRO::Compat' => '0.10';
+requires 'HTML::FormFu' => '0.09';
 requires 'Moose';
 requires 'MooseX::ChainedAccessors' => '0.02';
 requires 'Regexp::Assemble';
