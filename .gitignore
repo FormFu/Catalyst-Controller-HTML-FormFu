@@ -1,6 +1,9 @@
 *.tar.gz
 Makefile.old
 META.yml
+META.json
+MYMETA.yml
+MYMETA.json
 MANIFEST
 inc/
 README
