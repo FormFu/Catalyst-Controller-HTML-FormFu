@@ -1,9 +1,12 @@
 *.tar.gz
+Makefile
 Makefile.old
 META.yml
 META.json
 MYMETA.yml
 MYMETA.json
 MANIFEST
+blib/
 inc/
 README
+pm_to_blib
