@@ -1,3 +1,7 @@
+0.09004 2012-09-11
+
+    - switch from MooseX::ChainedAccessors to MooseX::Attribute::Chained
+
 0.09003 2011-05-12
 
      - depend on HTML::FormFu 0.09
