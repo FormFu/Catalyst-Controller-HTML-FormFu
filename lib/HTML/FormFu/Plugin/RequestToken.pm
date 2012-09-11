@@ -1,6 +1,6 @@
 package HTML::FormFu::Plugin::RequestToken;
 use Moose;
-use MooseX::ChainedAccessors;
+use MooseX::Attribute::Chained;
 extends 'HTML::FormFu::Plugin';
 
 has context         => ( is => 'rw', traits  => ['Chained'] );

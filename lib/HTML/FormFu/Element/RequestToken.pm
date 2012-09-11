@@ -1,6 +1,6 @@
 package HTML::FormFu::Element::RequestToken;
 use Moose;
-use MooseX::ChainedAccessors;
+use MooseX::Attribute::Chained;
 
 extends 'HTML::FormFu::Element::Text';
 

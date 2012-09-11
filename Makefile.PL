@@ -16,7 +16,7 @@ requires 'Config::Any';
 requires 'File::Spec';
 requires 'HTML::FormFu' => '0.09';
 requires 'Moose';
-requires 'MooseX::ChainedAccessors' => '0.02';
+requires 'MooseX::Attribute::Chained' => '1.0.1';
 requires 'Regexp::Assemble';
 requires 'Scalar::Util';
 requires 'Task::Weaken'; # to ensure Scalar::Util was built with weaken()
