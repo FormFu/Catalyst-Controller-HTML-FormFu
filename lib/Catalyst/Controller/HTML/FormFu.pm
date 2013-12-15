@@ -2,7 +2,6 @@ package Catalyst::Controller::HTML::FormFu;
 use Moose;
 
 use HTML::FormFu;
-use HTML::FormFu::MultiForm;
 use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
@@ -134,6 +133,8 @@ sub _form {
 
 sub _multiform {
     my $self = shift;
+
+    require HTML::FormFu::MultiForm;
 
     my $multi = HTML::FormFu::MultiForm->new( {
             %{ $self->_html_formfu_config->{constructor} },

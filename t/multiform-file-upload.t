@@ -1,7 +1,16 @@
 use strict;
 use warnings;
+use Test::More;
 
-use Test::More tests => 12;
+eval {
+    require HTML::FormFu::MultiForm;
+};
+if ($@) {
+    plan skip_all => 'HTML::FormFu::MultiForm required for MultiForm tests';
+    die $@;
+}
+
+plan tests => 12;
 
 use lib 't/lib';
 use Test::WWW::Mechanize::Catalyst 'TestApp';
