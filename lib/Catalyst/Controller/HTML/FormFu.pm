@@ -18,9 +18,6 @@ BEGIN {
 
 with 'Catalyst::Component::InstancePerContext';
 
-our $VERSION = '0.09004';
-$VERSION = eval $VERSION;              # see L<perlmodstyle>
-
 has _html_formfu_config => ( is => 'rw' );
 
 sub build_per_context_instance {
