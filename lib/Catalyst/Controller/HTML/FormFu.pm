@@ -6,7 +6,6 @@ use Config::Any;
 use Regexp::Assemble;
 use Scalar::Util qw/ isweak weaken /;
 use Carp qw/ croak /;
-use MRO::Compat;
 
 use namespace::autoclean;
 

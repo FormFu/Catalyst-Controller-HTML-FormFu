@@ -5,7 +5,6 @@ use warnings;
 use base qw( Catalyst::Controller::HTML::FormFu::ActionBase::Form );
 
 use Config::Any;
-use MRO::Compat;
 
 sub execute {
     my $self = shift;

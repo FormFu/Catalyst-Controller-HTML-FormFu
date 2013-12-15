@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use base qw( Catalyst::Controller::HTML::FormFu::ActionBase::Form );
 
-use MRO::Compat;
 use Carp qw( croak );
 
 sub execute {
