@@ -13,7 +13,7 @@ my $form = HTML::FormFu->new;
 
 $form->stash->{context} = new C::Fake;
 
-$form->load_config_file('t/elements/requesttoken.yml');
+$form->load_config_file('t-aggregate/elements/requesttoken.yml');
 
 like( $form, qr/<input name="_token" type="hidden" value="/, "RequestToken field is a hidden field" );
 
