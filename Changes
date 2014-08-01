@@ -1,4 +1,8 @@
-{{$NEXT}}
+-{{$NEXT}}
+
+    - Silence MooseX::Attribute::Chained warnings with HTML::FormFu 2.0+.
+
+1.00 2013-12-16
 
     - Updated for HTML-FormFu v1.00
     
