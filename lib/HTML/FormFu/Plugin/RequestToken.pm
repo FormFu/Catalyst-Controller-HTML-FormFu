@@ -1,12 +1,12 @@
 package HTML::FormFu::Plugin::RequestToken;
 use Moose;
-use MooseX::Attribute::Chained;
+use MooseX::Attribute::FormFuChained;
 extends 'HTML::FormFu::Plugin';
 
-has context         => ( is => 'rw', traits  => ['Chained'] );
-has field_name      => ( is => 'rw', traits  => ['Chained'] );
-has session_key     => ( is => 'rw', traits  => ['Chained'] );
-has expiration_time => ( is => 'rw', traits  => ['Chained'] );
+has context         => ( is => 'rw', traits  => ['FormFuChained'] );
+has field_name      => ( is => 'rw', traits  => ['FormFuChained'] );
+has session_key     => ( is => 'rw', traits  => ['FormFuChained'] );
+has expiration_time => ( is => 'rw', traits  => ['FormFuChained'] );
 
 sub process {
     my ($self) = @_;
