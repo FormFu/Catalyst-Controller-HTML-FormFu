@@ -1,7 +1,9 @@
 use strict;
 use warnings;
+use Test::More;
 
-use Test::More skip_all => "no multi form support yet";
+# short form of this appears to break the aggregate tests...
+plan skip_all => 'no multi form support yet';
 
 use lib 't/lib';
 use Test::WWW::Mechanize::Catalyst 'TestApp';
