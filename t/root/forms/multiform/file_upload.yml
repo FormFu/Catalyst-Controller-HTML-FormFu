@@ -10,7 +10,7 @@ forms:
     element:
       type: File
       name: image1
-  
+
   -
     element:
       type: File

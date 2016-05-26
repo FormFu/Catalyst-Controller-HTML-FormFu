@@ -27,7 +27,7 @@ sub build_per_context_instance {
     my ( $self, $c ) = @_;
     return $self unless(ref $c);
     $self->{c} = $c;
-    
+
     weaken( $self->{c} )
         if !isweak( $self->{c} );
 
@@ -167,11 +167,11 @@ sub _common_construction {
                     s{__uri_for\((.+?)\)__}
                      { $self->{c}->uri_for( split( '\s*,\s*', $1 ) ) }eg
                         if /__uri_for\(/;
-                    
+
                     s{__path_to\(\s*(.+?)\s*\)__}
                      { $self->{c}->path_to( split( '\s*,\s*', $1 ) ) }eg
                         if /__path_to\(/;
-                    
+
                     s{__config\((.+?)\)__}
                      { $self->{c}->config->{$1}  }eg
                         if /__config\(/;
@@ -268,33 +268,33 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 =head1 SYNOPSIS
 
     package MyApp::Controller::My::Controller;
-    
+
     use base 'Catalyst::Controller::HTML::FormFu';
-    
+
     sub index : Local {
         my ( $self, $c ) = @_;
-        
+
         # doesn't use an Attribute to make a form
         # can get an empty form from $self->form()
-        
+
         my $form = $self->form();
     }
-    
+
     sub foo : Local : Form {
         my ( $self, $c ) = @_;
-        
+
         # using the Form attribute is equivalent to:
         #
         # my $form = $self->form;
         #
         # $form->process;
-        # 
+        #
         # $c->stash->{form} = $form;
     }
-    
+
     sub bar : Local : FormConfig {
         my ( $self, $c ) = @_;
-        
+
         # using the FormConfig attribute is equivalent to:
         #
         # my $form = $self->form;
@@ -306,17 +306,17 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
         # $c->stash->{form} = $form;
         #
         # so you only need to do the following...
-        
+
         my $form = $c->stash->{form};
-        
+
         if ( $form->submitted_and_valid ) {
             do_something();
         }
     }
-    
+
     sub baz : Local : FormConfig('my_config') {
         my ( $self, $c ) = @_;
-        
+
         # using the FormConfig attribute with an argument is equivalent to:
         #
         # my $form = $self->form;
@@ -328,17 +328,17 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
         # $c->stash->{form} = $form;
         #
         # so you only need to do the following...
-        
+
         my $form = $c->stash->{form};
-        
+
         if ( $form->submitted_and_valid ) {
             do_something();
         }
     }
-    
+
     sub quux : Local : FormMethod('load_form') {
         my ( $self, $c ) = @_;
-        
+
         # using the FormMethod attribute with an argument is equivalent to:
         #
         # my $form = $self->form;
@@ -350,21 +350,21 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
         # $c->stash->{form} = $form;
         #
         # so you only need to do the following...
-        
+
         my $form = $c->stash->{form};
-        
+
         if ( $form->submitted_and_valid ) {
             do_something();
         }
     }
-    
+
     sub load_form {
         my ( $self, $c ) = @_;
-        
+
         # Automatically called by the above FormMethod('load_form') action.
-        # Called as a method on the controller object, with the context 
+        # Called as a method on the controller object, with the context
         # object as an argument.
-        
+
         # Must return a hash-ref suitable to be fed to $form->populate()
     }
 
@@ -372,24 +372,24 @@ You can also use specially-named actions that will only be called under
 certain circumstances.
 
     sub edit : Chained('group') : PathPart : Args(0) : FormConfig { }
-    
+
     sub edit_FORM_VALID {
         my ( $self, $c ) = @_;
-        
+
         my $form  = $c->stash->{form};
         my $group = $c->stash->{group};
-        
+
         $form->model->update( $group );
-        
+
         $c->response->redirect( $c->uri_for( '/group', $group->id ) );
     }
-    
+
     sub edit_FORM_NOT_SUBMITTED {
         my ( $self, $c ) = @_;
-        
+
         my $form  = $c->stash->{form};
         my $group = $c->stash->{group};
-        
+
         $form->model->default_values( $group );
     }
 
@@ -397,20 +397,20 @@ certain circumstances.
 
 =head2 form
 
-This creates a new L<HTML::FormFu> object, passing as it's argument the 
+This creates a new L<HTML::FormFu> object, passing as it's argument the
 contents of the L</constructor> config value.
 
-This is useful when using the ConfigForm() or MethodForm() action attributes, 
-to create a 2nd form which isn't populated using a config-file or method 
+This is useful when using the ConfigForm() or MethodForm() action attributes,
+to create a 2nd form which isn't populated using a config-file or method
 return value.
 
     sub foo : Local {
         my ( $self, $c ) = @_;
-        
+
         my $form = $self->form;
     }
 
-Note that when using this method, the form's L<query|HTML::FormFu/query> 
+Note that when using this method, the form's L<query|HTML::FormFu/query>
 method is not populated with the Catalyst request object.
 
 =head1 SPECIAL ACTION NAMES
@@ -420,22 +420,22 @@ smaller sections, making it clearer which code will be run, and when.
 
     sub edit : Local : FormConfig {
         my ( $self, $c ) = @_;
-        
+
         my $form  = $c->stash->{form};
         my $group = $c->stash->{group};
-        
+
         $c->detach('/unauthorised') unless $c->user->can_edit( $group );
-        
+
         if ( $form->submitted_and_valid ) {
             $form->model->update( $group );
-            
+
             $c->response->redirect( $c->uri_for('/group', $group->id ) );
             return;
         }
         elsif ( !$form->submitted ) {
             $form->model->default_values( $group );
         }
-        
+
         $self->_add_breadcrumbs_nav( $c, $group );
     }
 
@@ -443,33 +443,33 @@ Instead becomes...
 
     sub edit : Local : FormConfig {
         my ( $self, $c ) = @_;
-        
+
         $c->detach('/unauthorised') unless $c->user->can_edit(
             $c->stash->{group}
         );
     }
-    
+
     sub edit_FORM_VALID {
         my ( $self, $c ) = @_;
-        
+
         my $group = $c->stash->{group};
-        
+
         $c->stash->{form}->model->update( $group );
-        
+
         $c->response->redirect( $c->uri_for('/group', $group->id ) );
     }
-    
+
     sub edit_FORM_NOT_SUBMITTED {
         my ( $self, $c ) = @_;
-        
+
         $c->stash->{form}->model->default_values(
             $c->stash->{group}
         );
     }
-    
+
     sub edit_FORM_RENDER {
         my ( $self, $c ) = @_;
-        
+
         $self->_add_breadcrumbs_nav( $c, $c->stash->{group} );
     }
 
@@ -513,17 +513,17 @@ special methods, unless C<< $multi->complete >> is true.
 
 =head1 CUSTOMIZATION
 
-You can set your own config settings, using either your controller config 
+You can set your own config settings, using either your controller config
 or your application config.
 
     $c->config( 'Controller::HTML::FormFu' => \%my_values );
-    
+
     # or
-    
+
     MyApp->config( 'Controller::HTML::FormFu' => \%my_values );
-    
+
     # or, in myapp.conf
-    
+
     <Controller::HTML::FormFu>
         default_action_use_path 1
     </Controller::HTML::FormFu>
@@ -544,21 +544,21 @@ Default value: C<form>.
 
 =head2 form_attr
 
-Sets the attribute name used to load the 
+Sets the attribute name used to load the
 L<Catalyst::Controller::HTML::FormFu::Action::Form> action.
 
 Default value: C<Form>.
 
 =head2 config_attr
 
-Sets the attribute name used to load the 
+Sets the attribute name used to load the
 L<Catalyst::Controller::HTML::FormFu::Action::Config> action.
 
 Default value: C<FormConfig>.
 
 =head2 method_attr
 
-Sets the attribute name used to load the 
+Sets the attribute name used to load the
 L<Catalyst::Controller::HTML::FormFu::Action::Method> action.
 
 Default value: C<FormMethod>.
@@ -567,7 +567,7 @@ Default value: C<FormMethod>.
 
 Sets which package will be used by the Form() action.
 
-Probably only useful if you want to create a sub-class which provides custom 
+Probably only useful if you want to create a sub-class which provides custom
 behaviour.
 
 Default value: C<Catalyst::Controller::HTML::FormFu::Action::Form>.
@@ -576,7 +576,7 @@ Default value: C<Catalyst::Controller::HTML::FormFu::Action::Form>.
 
 Sets which package will be used by the Config() action.
 
-Probably only useful if you want to create a sub-class which provides custom 
+Probably only useful if you want to create a sub-class which provides custom
 behaviour.
 
 Default value: C<Catalyst::Controller::HTML::FormFu::Action::Config>.
@@ -585,7 +585,7 @@ Default value: C<Catalyst::Controller::HTML::FormFu::Action::Config>.
 
 Sets which package will be used by the Method() action.
 
-Probably only useful if you want to create a sub-class which provides custom 
+Probably only useful if you want to create a sub-class which provides custom
 behaviour.
 
 Default value: C<Catalyst::Controller::HTML::FormFu::Action::Method>.
@@ -594,7 +594,7 @@ Default value: C<Catalyst::Controller::HTML::FormFu::Action::Method>.
 
 Pass common defaults to the L<HTML::FormFu constructor|HTML::FormFu/new>.
 
-These values are used by all of the action attributes, and by the 
+These values are used by all of the action attributes, and by the
 C<< $self->form >> method.
 
 Default value: C<{}>.
@@ -603,13 +603,13 @@ Default value: C<{}>.
 
 Arguments: bool
 
-If true, a coderef is passed to C<< $form->config_callback->{plain_value} >> 
+If true, a coderef is passed to C<< $form->config_callback->{plain_value} >>
 which replaces any instance of C<__uri_for(URI)__> found in form config files
 with the result of passing the C<URI> argument to L<Catalyst/uri_for>.
 
-The form C<< __uri_for(URI, PATH, PARTS)__ >> is also supported, which is 
-equivalent to C<< $c->uri_for( 'URI', \@ARGS ) >>. At this time, there is no 
-way to pass query values equivalent to 
+The form C<< __uri_for(URI, PATH, PARTS)__ >> is also supported, which is
+equivalent to C<< $c->uri_for( 'URI', \@ARGS ) >>. At this time, there is no
+way to pass query values equivalent to
 C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>.
 
 The second codeword that is being replaced is C<__path_to( @DIRS )__>. Any
@@ -621,14 +621,14 @@ Default value: 1
 
 =head2 default_action_use_name
 
-If set to a true value the action for the form will be set to the currently 
+If set to a true value the action for the form will be set to the currently
 called action name.
 
 Default value: C<false>.
 
 =head2 default_action_use_path
 
-If set to a true value the action for the form will be set to the currently 
+If set to a true value the action for the form will be set to the currently
 called action path.
 The action path includes concurrent to action name additioal parameters which
 were code inside the path.
@@ -639,10 +639,10 @@ Example:
 
     action: /foo/bar
     called uri contains: /foo/bar/1
-    
+
     # default_action_use_name => 1 leads to:
     $form->action = /foo/bar
-    
+
     # default_action_use_path => 1 leads to:
     $form->action = /foo/bar/1
 
@@ -666,7 +666,7 @@ C<model_stash> like so:
 
 =head2 context_stash
 
-To allow your form validation packages, etc, access to the catalyst context, 
+To allow your form validation packages, etc, access to the catalyst context,
 a weakened reference of the context is copied into the form's stash.
 
     $form->stash->{context};
@@ -677,15 +677,15 @@ Default value: C<context>
 
 =head2 languages_from_context
 
-If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which 
-provides a C<languages> method that returns a list of valid languages to use 
-for the currect request - and you want to use formfu's built-in I18N packages, 
+If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which
+provides a C<languages> method that returns a list of valid languages to use
+for the currect request - and you want to use formfu's built-in I18N packages,
 then setting L</languages_from_context>
 
 =head2 localize_from_context
 
-If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which 
-provides it's own C<localize> method, you can set L<localize_from_context> to 
+If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which
+provides it's own C<localize> method, you can set L<localize_from_context> to
 use that method for formfu's localization.
 
 =head2 request_token_enable
@@ -719,15 +719,15 @@ Use C<< {constructor}{config_file_path} >> instead.
 
 =head1 CAVEATS
 
-When using the C<Form> action attribute to create an empty form, you must 
+When using the C<Form> action attribute to create an empty form, you must
 call L<< $form->process|HTML::FormFu/process >> after populating the form.
-However, you don't need to pass any arguments to C<process>, as the 
-Catalyst request object will have automatically been set in 
+However, you don't need to pass any arguments to C<process>, as the
+Catalyst request object will have automatically been set in
 L<< $form->query|HTML::FormFu/query >>.
 
-When using the C<FormConfig> and C<FormMethod> action attributes, if you 
-make any modifications to the form, such as adding or changing it's 
-elements, you must call L<< $form->process|HTML::FormFu/process >> before 
+When using the C<FormConfig> and C<FormMethod> action attributes, if you
+make any modifications to the form, such as adding or changing it's
+elements, you must call L<< $form->process|HTML::FormFu/process >> before
 rendering the form.
 
 =head1 GITHUB REPOSITORY

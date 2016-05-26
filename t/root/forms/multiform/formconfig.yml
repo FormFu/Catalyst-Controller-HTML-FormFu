@@ -9,7 +9,7 @@ forms:
   -
     element:
       name: page1
-  
+
   -
     element:
       name: page2

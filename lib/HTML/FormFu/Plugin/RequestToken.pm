@@ -15,11 +15,11 @@ has expiration_time => ( is => 'rw', traits  => ['FormFuChained'] );
 
 sub process {
     my ($self) = @_;
-    
+
     return if $self->form->get_all_element( { name => $self->field_name } );
-    
+
     my $c = $self->form->stash->{'context'};
-    
+
     $self->form->elements( [ {
                 type            => 'RequestToken',
                 name            => $self->field_name,

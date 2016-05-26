@@ -14,9 +14,9 @@ sub formconfig : Chained('multiform') : Args(0) : MultiFormConfig { }
 
 sub formconfig_FORM_COMPLETE {
     my ( $self, $c ) = @_;
-    
+
     my $multi = $c->stash->{multiform};
-    
+
     if ( $multi->complete ) {
         my $params = $multi->current_form->params;
 
