@@ -108,7 +108,7 @@ after BUILD => sub {
     $self->_html_formfu_config( \%args );
 
     # add controller methods
-    no strict 'refs';
+    no strict 'refs';    ## no critic (ProhibitNoStrict);
     *{"$args{form_method}"}      = \&_form;
     *{"$args{multiform_method}"} = \&_multiform;
 };

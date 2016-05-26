@@ -35,7 +35,7 @@ sub process_value {
 sub verify_token {
     my ($self, $token) = @_;
 
-    return undef unless($token);
+    return unless($token);
 
     my $form = $self->form;
 
@@ -50,7 +50,7 @@ sub verify_token {
         return 1 if ( $_->[0] eq $token );
     }
 
-    return undef;
+    return;
 }
 
 sub expire_token {
