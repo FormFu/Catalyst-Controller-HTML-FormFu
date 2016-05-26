@@ -1,6 +1,7 @@
 -{{$NEXT}}
 
     - Silence MooseX::Attribute::Chained warnings with HTML::FormFu 2.0+.
+    - Packaging tweaks including adding travis CI support
 
 1.00 2013-12-16
 

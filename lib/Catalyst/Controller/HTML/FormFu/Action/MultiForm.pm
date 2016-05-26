@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use base qw( Catalyst::Controller::HTML::FormFu::ActionBase::Form );
 
+# VERSION
+
 use Config::Any;
 
 sub execute {

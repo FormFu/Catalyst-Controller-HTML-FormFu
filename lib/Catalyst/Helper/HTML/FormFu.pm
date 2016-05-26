@@ -3,6 +3,8 @@ package Catalyst::Helper::HTML::FormFu;
 use strict;
 use warnings;
 
+# VERSION
+
 use File::Spec;
 use HTML::FormFu::Deploy;
 use Carp qw/ croak /;

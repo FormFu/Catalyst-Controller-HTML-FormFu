@@ -1,4 +1,9 @@
 package HTML::FormFu::Plugin::RequestToken;
+
+use strict;
+
+# VERSION
+
 use Moose;
 use MooseX::Attribute::FormFuChained;
 extends 'HTML::FormFu::Plugin';

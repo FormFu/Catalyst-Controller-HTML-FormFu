@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use base qw( Catalyst::Action );
 
+# VERSION
+
 sub _form_action_regex {
     return qr/_FORM_(RENDER|(NOT_)?(VALID|COMPLETE|SUBMITTED))\z/;
 }
