@@ -6,7 +6,7 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 
 =head1 VERSION
 
-version 1.00_01
+version 2.00
 
 =head1 SYNOPSIS
 

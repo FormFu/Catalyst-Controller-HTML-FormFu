@@ -1,7 +1,8 @@
--{{$NEXT}}
+{{$NEXT}}
 
     - Silence MooseX::Attribute::Chained warnings with HTML::FormFu 2.0+.
     - Packaging tweaks including adding travis CI support
+    - Updated version to 2.x to match other modules, requires HTML-FormFu v2.00
 
 1.00 2013-12-16
 
