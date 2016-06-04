@@ -1,10 +1,14 @@
 package Catalyst::Controller::HTML::FormFu::ActionBase::Form;
 
 use strict;
-use warnings;
-use base qw( Catalyst::Action );
 
 # VERSION
+
+use Moose;
+
+use namespace::autoclean;
+
+BEGIN { extends 'Catalyst::Action'; }
 
 sub _form_action_regex {
     return qr/_FORM_(RENDER|(NOT_)?(VALID|COMPLETE|SUBMITTED))\z/;

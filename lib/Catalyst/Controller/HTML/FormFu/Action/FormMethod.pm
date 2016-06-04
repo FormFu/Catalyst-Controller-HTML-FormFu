@@ -1,12 +1,14 @@
 package Catalyst::Controller::HTML::FormFu::Action::FormMethod;
 
 use strict;
-use warnings;
-use base qw( Catalyst::Controller::HTML::FormFu::ActionBase::Form );
 
 # VERSION
 
+use Moose;
 use Carp qw( croak );
+use namespace::autoclean;
+
+extends 'Catalyst::Controller::HTML::FormFu::ActionBase::Form';
 
 sub execute {
     my $self = shift;
