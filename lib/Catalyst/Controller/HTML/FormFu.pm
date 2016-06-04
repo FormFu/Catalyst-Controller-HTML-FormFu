@@ -269,7 +269,10 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 
     package MyApp::Controller::My::Controller;
 
-    use base 'Catalyst::Controller::HTML::FormFu';
+    use Moose;
+    use namespace::autoclean;
+
+    BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
     sub index : Local {
         my ( $self, $c ) = @_;
