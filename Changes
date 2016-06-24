@@ -1,5 +1,12 @@
 {{$NEXT}}
 
+2.01 2016-06-24
+
+    - Version numbering now handled in dzil
+    - Example and internal code uses Moose conventions
+
+2.00 2016-06-01
+
     - Silence MooseX::Attribute::Chained warnings with HTML::FormFu 2.0+.
     - Packaging tweaks including adding travis CI support
     - Updated version to 2.x to match other modules, requires HTML-FormFu v2.00
