@@ -3,6 +3,7 @@ package Catalyst::Controller::HTML::FormFu;
 use strict;
 
 # VERSION
+# AUTHORITY
 
 use Moose;
 

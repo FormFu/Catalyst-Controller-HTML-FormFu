@@ -3,6 +3,7 @@ package HTML::FormFu::Element::RequestToken;
 use strict;
 
 # VERSION
+# AUTHORITY
 
 use Moose;
 use MooseX::Attribute::FormFuChained;

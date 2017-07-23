@@ -3,6 +3,7 @@ package Catalyst::Controller::HTML::FormFu::Action::MultiFormConfig;
 use strict;
 
 # VERSION
+# AUTHORITY
 
 use Moose;
 use Config::Any;

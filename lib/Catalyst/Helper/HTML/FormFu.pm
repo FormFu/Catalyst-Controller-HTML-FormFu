@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 # VERSION
+# AUTHORITY
 
 use File::Spec;
 use HTML::FormFu::Deploy;
