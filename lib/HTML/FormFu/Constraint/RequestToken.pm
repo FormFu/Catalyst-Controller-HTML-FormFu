@@ -3,6 +3,7 @@ package HTML::FormFu::Constraint::RequestToken;
 use strict;
 
 # VERSION
+# AUTHORITY
 
 use Moose;
 

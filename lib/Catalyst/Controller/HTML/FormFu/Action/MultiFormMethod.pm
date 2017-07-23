@@ -3,6 +3,7 @@ package Catalyst::Controller::HTML::FormFu::Action::MultiFormMethod;
 use strict;
 
 # VERSION
+# AUTHORITY
 
 use Moose;
 use Carp qw( croak );
