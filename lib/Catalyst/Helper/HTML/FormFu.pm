@@ -45,10 +45,10 @@ Catalyst::Helper::HTML::FormFu - Helper to deploy HTML::FormFu template files.
 As of version 0.02000, L<HTML::FormFu> doesn't use the TT template files by
 default - it uses in internal rendering engine.
 
-If you don't want to customise the generated markup, you don't need to use
+If you don't want to customize the generated markup, you don't need to use
 L<Catalyst::Helper::HTML::FormFu> at all.
 
-If you want to customise the generated markup, you'll need a
+If you want to customize the generated markup, you'll need a
 local copy of the template files. To create the files in the default
 C<root/formfu> directory, run:
 

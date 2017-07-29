@@ -615,10 +615,10 @@ equivalent to C<< $c->uri_for( 'URI', \@ARGS ) >>. At this time, there is no
 way to pass query values equivalent to
 C<< $c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES ) >>.
 
-The second codeword that is being replaced is C<__path_to( @DIRS )__>. Any
+The second code word that is being replaced is C<__path_to( @DIRS )__>. Any
 instance is replaced with the result of passing the C<DIRS> arguments to
 L<Catalyst/path_to>.
-Don't use qoutationmarks as they would become part of the path.
+Don't use quotation marks as they would become part of the path.
 
 Default value: 1
 
@@ -633,7 +633,7 @@ Default value: C<false>.
 
 If set to a true value the action for the form will be set to the currently
 called action path.
-The action path includes concurrent to action name additioal parameters which
+The action path includes concurrent to action name additional parameters which
 were code inside the path.
 
 Default value: C<false>.
@@ -682,7 +682,7 @@ Default value: C<context>
 
 If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which
 provides a C<languages> method that returns a list of valid languages to use
-for the currect request - and you want to use formfu's built-in I18N packages,
+for the correct request - and you want to use formfu's built-in I18N packages,
 then setting L</languages_from_context>
 
 =head2 localize_from_context
@@ -735,7 +735,7 @@ rendering the form.
 
 =head1 GITHUB REPOSITORY
 
-This module's sourcecode is maintained in a git repository at
+This module's source code is maintained in a git repository at
 L<git://github.com/fireartist/Catalyst-Controller-HTML-FormFu.git>
 
 The project page is L<https://github.com/fireartist/Catalyst-Controller-HTML-FormFu>
