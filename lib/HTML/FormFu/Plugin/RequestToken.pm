@@ -18,8 +18,6 @@ sub process {
 
     return if $self->form->get_all_element( { name => $self->field_name } );
 
-    my $c = $self->form->stash->{'context'};
-
     $self->form->elements( [ {
                 type            => 'RequestToken',
                 name            => $self->field_name,

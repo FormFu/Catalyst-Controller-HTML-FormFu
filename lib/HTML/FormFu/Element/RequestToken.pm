@@ -42,8 +42,6 @@ sub verify_token {
     croak "verify_token() can only be called if form has been submitted"
         if !$form->submitted;
 
-    my $field_name = $self->name;
-
     my $c = $self->form->stash->{ $self->context };
 
     for ( @{ $c->session->{ $self->session_key } || [] } ) {

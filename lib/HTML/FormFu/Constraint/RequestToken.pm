@@ -9,7 +9,7 @@ use Moose;
 extends 'HTML::FormFu::Constraint';
 
 sub BUILD {
-    my ( $self, $args ) = @_;
+    my ( $self ) = @_;
 
     $self->message($self->parent->message);
 
