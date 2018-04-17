@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+2.03      2018-04-17 17:19:27+01:00 Europe/London (TRIAL RELEASE)
     - Tweaks for travis CI and release tooling
 
     - Revert to using MooseX::Attribute::Chained as per HTML::FormFu v2.06

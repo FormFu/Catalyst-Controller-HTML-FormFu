@@ -119,8 +119,8 @@ version 2.03
         # Must return a hash-ref suitable to be fed to $form->populate()
     }
 
-You can also use specially-named actions that will only be called under
-certain circumstances.
+You can also use specially-named actions that will only be called under certain
+circumstances.
 
     sub edit : Chained('group') : PathPart : Args(0) : FormConfig { }
 
@@ -152,8 +152,8 @@ This creates a new [HTML::FormFu](https://metacpan.org/pod/HTML::FormFu) object,
 contents of the ["constructor"](#constructor) config value.
 
 This is useful when using the ConfigForm() or MethodForm() action attributes,
-to create a 2nd form which isn't populated using a config-file or method
-return value.
+to create a 2nd form which isn't populated using a config-file or method return
+value.
 
     sub foo : Local {
         my ( $self, $c ) = @_;
@@ -161,8 +161,8 @@ return value.
         my $form = $self->form;
     }
 
-Note that when using this method, the form's [query](https://metacpan.org/pod/HTML::FormFu#query)
-method is not populated with the Catalyst request object.
+Note that when using this method, the form's [query](https://metacpan.org/pod/HTML::FormFu#query) method
+is not populated with the Catalyst request object.
 
 # SPECIAL ACTION NAMES
 
@@ -256,16 +256,16 @@ For MultiForms, is run if the MultiForm is not completed.
 
 ## \_FORM\_RENDER
 
-For normal `Form` base classes, this subroutine is run after any of the
-other special methods, unless `$form->submitted_and_valid` is true.
+For normal `Form` base classes, this subroutine is run after any of the other
+special methods, unless `$form->submitted_and_valid` is true.
 
 For `MultiForm` base classes, this subroutine is run after any of the other
 special methods, unless `$multi->complete` is true.
 
 # CUSTOMIZATION
 
-You can set your own config settings, using either your controller config
-or your application config.
+You can set your own config settings, using either your controller config or
+your application config.
 
     $c->config( 'Controller::HTML::FormFu' => \%my_values );
 
@@ -345,8 +345,7 @@ Default value: `Catalyst::Controller::HTML::FormFu::Action::Method`.
 
 Pass common defaults to the [HTML::FormFu constructor](https://metacpan.org/pod/HTML::FormFu#new).
 
-These values are used by all of the action attributes, and by the
-`$self->form` method.
+These values are used by all of the action attributes, and by the `$self->form` method.
 
 Default value: `{}`.
 
@@ -360,13 +359,13 @@ with the result of passing the `URI` argument to ["uri\_for" in Catalyst](https:
 
 The form `__uri_for(URI, PATH, PARTS)__` is also supported, which is
 equivalent to `$c->uri_for( 'URI', \@ARGS )`. At this time, there is no
-way to pass query values equivalent to
-`$c->uri_for( 'URI', \@ARGS, \%QUERY_VALUES )`.
+way to pass query values equivalent to `$c->uri_for( 'URI', \@ARGS,
+\%QUERY_VALUES )`.
 
 The second codeword that is being replaced is `__path_to( @DIRS )__`. Any
 instance is replaced with the result of passing the `DIRS` arguments to
-["path\_to" in Catalyst](https://metacpan.org/pod/Catalyst#path_to).
-Don't use qoutationmarks as they would become part of the path.
+["path\_to" in Catalyst](https://metacpan.org/pod/Catalyst#path_to). Don't use qoutationmarks as they would become part of the
+path.
 
 Default value: 1
 
@@ -380,9 +379,8 @@ Default value: `false`.
 ## default\_action\_use\_path
 
 If set to a true value the action for the form will be set to the currently
-called action path.
-The action path includes concurrent to action name additioal parameters which
-were code inside the path.
+called action path. The action path includes concurrent to action name
+additioal parameters which were code inside the path.
 
 Default value: `false`.
 
@@ -405,9 +403,9 @@ Used to place Catalyst models on the form stash.
 
 If it's being used to make a [DBIx::Class](https://metacpan.org/pod/DBIx::Class) schema available for
 ["options\_from\_model" in HTML::FormFu::Model::DBIC](https://metacpan.org/pod/HTML::FormFu::Model::DBIC#options_from_model), for `Select` and other
-Group-type elements - then the hash-key must be `schema`. For example, if
-your schema model class is `MyApp::Model::MySchema`, you would set
-`model_stash` like so:
+Group-type elements - then the hash-key must be `schema`. For example, if your
+schema model class is `MyApp::Model::MySchema`, you would set `model_stash`
+like so:
 
     <Controller::HTML::FormFu>
         <model_stash>
@@ -417,8 +415,8 @@ your schema model class is `MyApp::Model::MySchema`, you would set
 
 ## context\_stash
 
-To allow your form validation packages, etc, access to the catalyst context,
-a weakened reference of the context is copied into the form's stash.
+To allow your form validation packages, etc, access to the catalyst context, a
+weakened reference of the context is copied into the form's stash.
 
     $form->stash->{context};
 
@@ -442,7 +440,8 @@ use that method for formfu's localization.
 ## request\_token\_enable
 
 If true, adds an instance of [HTML::FormFu::Plugin::RequestToken](https://metacpan.org/pod/HTML::FormFu::Plugin::RequestToken) to every
-form, to stop accidental double-submissions of data and to prevent CSRF attacks.
+form, to stop accidental double-submissions of data and to prevent CSRF
+attacks.
 
 ## request\_token\_field\_name
 
@@ -460,26 +459,23 @@ Defaults to `3600`.
 
 ## config\_file\_ext
 
-Support for this has now been removed. Config files are now searched
-for, with any file extension supported by Config::Any.
+Support for this has now been removed. Config files are now searched for, with
+any file extension supported by Config::Any.
 
 ## config\_file\_path
 
-Support for this has now been removed.
-Use `{constructor}{config_file_path}` instead.
+Support for this has now been removed. Use `{constructor}{config_file_path}` instead.
 
 # CAVEATS
 
-When using the `Form` action attribute to create an empty form, you must
-call [$form->process](https://metacpan.org/pod/HTML::FormFu#process) after populating the form.
-However, you don't need to pass any arguments to `process`, as the
-Catalyst request object will have automatically been set in
-[$form->query](https://metacpan.org/pod/HTML::FormFu#query).
+When using the `Form` action attribute to create an empty form, you must call
+[$form->process](https://metacpan.org/pod/HTML::FormFu#process) after populating the form. However,
+you don't need to pass any arguments to `process`, as the Catalyst request
+object will have automatically been set in [$form->query](https://metacpan.org/pod/HTML::FormFu#query).
 
-When using the `FormConfig` and `FormMethod` action attributes, if you
-make any modifications to the form, such as adding or changing it's
-elements, you must call [$form->process](https://metacpan.org/pod/HTML::FormFu#process) before
-rendering the form.
+When using the `FormConfig` and `FormMethod` action attributes, if you make
+any modifications to the form, such as adding or changing it's elements, you
+must call [$form->process](https://metacpan.org/pod/HTML::FormFu#process) before rendering the form.
 
 # AUTHORS
 
@@ -489,7 +485,7 @@ rendering the form.
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2007-2017 by Carl Franks / Nigel Metheringham / Dean Hamstead.
+This software is copyright (c) 2007-2018 by Carl Franks / Nigel Metheringham / Dean Hamstead.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
