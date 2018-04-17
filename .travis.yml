@@ -1,5 +1,5 @@
 language: perl
-perl: 
+perl:
   - "5.26"
   - "5.24"
   - "5.22"
@@ -7,8 +7,8 @@ perl:
   - "5.18"
   - "5.16"
   - "5.14"
-  - "5.12"
-  - "5.10"
+  #- "5.12"             # dzil will not install on perl 5.12 or below
+  #- "5.10"
   #- "dev"              # installs latest developer release of perl (e.g. 5.21.8)
   - "blead"            # builds perl from git
 
@@ -26,8 +26,7 @@ matrix:
   allow_failures:
     - perl: blead       # ignore failures for blead perl
     - perl: "5.18"      # currently fails on Travis for some odd dzil build reason
-  include:
-    - perl: "5.24"
+    - perl: "5.26"      # This can time out
       env: COVERAGE=1   # enables coverage+coveralls reporting
 
 install:
