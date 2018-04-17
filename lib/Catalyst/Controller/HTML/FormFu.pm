@@ -1,5 +1,7 @@
 package Catalyst::Controller::HTML::FormFu;
 
+# ABSTRACT: Catalyst integration for HTML::FormFu
+
 use strict;
 
 # VERSION
@@ -261,10 +263,6 @@ sub create_action {
 1;
 
 __END__
-
-=head1 NAME
-
-Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 
 =head1 SYNOPSIS
 
@@ -733,28 +731,3 @@ When using the C<FormConfig> and C<FormMethod> action attributes, if you
 make any modifications to the form, such as adding or changing it's
 elements, you must call L<< $form->process|HTML::FormFu/process >> before
 rendering the form.
-
-=head1 GITHUB REPOSITORY
-
-This module's sourcecode is maintained in a git repository at
-L<git://github.com/fireartist/Catalyst-Controller-HTML-FormFu.git>
-
-The project page is L<https://github.com/fireartist/Catalyst-Controller-HTML-FormFu>
-
-=head1 SEE ALSO
-
-L<HTML::FormFu>, L<Catalyst::Helper::HTML::FormFu>
-
-=head1 AUTHOR
-
-Carl Franks, C<cfranks@cpan.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2007 by Carl Franks
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.8.8 or,
-at your option, any later version of Perl 5 you may have available.
-
-=cut

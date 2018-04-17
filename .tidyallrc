@@ -1,0 +1,24 @@
+; -- Tidyall config file
+; --
+; -- ignore patterns - mainly to prevent dzil issues with generated files
+ignore = t/00-*
+ignore = t/author-*
+ignore = t/release-*
+ignore = blib/**/*
+ignore = .build/**/*
+ignore = build_dir/**/*
+ignore = Catalyst-Controller-HTML-FormFu*/**/*
+
+[PerlTidy]
+argv =  --profile=$ROOT/.perltidyrc
+select = */**/*.{pl,pm,t}
+
+[PodTidy]
+select = */**/*.{pl,pm,pod}
+
+[PerlCritic]
+select = */**/*.{pl,pm}
+except_modes = editor
+
+[Perl::AlignMooseAttributes]
+select = */**/*.{pl,pm,t}
