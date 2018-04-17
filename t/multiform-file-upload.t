@@ -2,9 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
-eval {
-    require HTML::FormFu::MultiForm;
-};
+eval { require HTML::FormFu::MultiForm; };
 if ($@) {
     plan skip_all => 'HTML::FormFu::MultiForm required for MultiForm tests';
     die $@;
@@ -73,10 +71,6 @@ $mech->post(
 
 $mech->content_contains('Complete');
 
-$mech->content_contains(
-    'param: image1, size: 2517, filename: btn_88x31_built.png, type: image/png'
-);
+$mech->content_contains( 'param: image1, size: 2517, filename: btn_88x31_built.png, type: image/png' );
 
-$mech->content_contains(
-    'param: image2, size: 3826, filename: btn_120x50_built.png, type: image/png'
-);
+$mech->content_contains( 'param: image2, size: 3826, filename: btn_120x50_built.png, type: image/png' );

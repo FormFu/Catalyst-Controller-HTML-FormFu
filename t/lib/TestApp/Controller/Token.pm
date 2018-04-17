@@ -17,8 +17,7 @@ sub form : Chained('token') : Args(0) : Form {
 
     my $form = $c->stash->{form};
 
-    $form->elements(
-        [ { name => 'basic_form', constraint => ['Required'] }, { type => "Submit" } ] );
+    $form->elements( [ { name => 'basic_form', constraint => ['Required'] }, { type => "Submit" } ] );
     $form->process( $c->req );
     if ( $form->submitted_and_valid ) {
         $c->res->body("VALID");

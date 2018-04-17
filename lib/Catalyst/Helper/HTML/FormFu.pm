@@ -15,8 +15,7 @@ sub mk_stuff {
 
     my @files = HTML::FormFu::Deploy::file_list();
 
-    my $form_dir = File::Spec->catdir( $helper->{base}, 'root',
-        ( defined $dir ? $dir : 'formfu' ) );
+    my $form_dir = File::Spec->catdir( $helper->{base}, 'root', ( defined $dir ? $dir : 'formfu' ) );
 
     $helper->mk_dir($form_dir) unless -d $form_dir;
 
@@ -49,15 +48,15 @@ default - it uses in internal rendering engine.
 If you don't want to customise the generated markup, you don't need to use
 L<Catalyst::Helper::HTML::FormFu> at all.
 
-If you want to customise the generated markup, you'll need a
-local copy of the template files. To create the files in the default
-C<root/formfu> directory, run:
+If you want to customise the generated markup, you'll need a local copy of the
+template files. To create the files in the default C<root/formfu> directory,
+run:
 
     script/myapp_create.pl HTML::FormFu
 
-To create the files in a different subdirectory of C<root>, pass the path
-as an argument. The following example would create the template files into
-the directory C<root/forms>.
+To create the files in a different subdirectory of C<root>, pass the path as an
+argument. The following example would create the template files into the
+directory C<root/forms>.
 
     script/myapp_create.pl HTML::FormFu forms
 
@@ -90,7 +89,7 @@ Carl Franks, C<cfranks@cpan.org>
 
 =head1 LICENSE
 
-This library is free software . You can redistribute it and/or modify
-it under the same terms as perl itself.
+This library is free software . You can redistribute it and/or modify it under
+the same terms as perl itself.
 
 =cut

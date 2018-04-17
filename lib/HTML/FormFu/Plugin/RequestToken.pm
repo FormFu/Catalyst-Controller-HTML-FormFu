@@ -21,13 +21,15 @@ sub process {
 
     my $c = $self->form->stash->{'context'};
 
-    $self->form->elements( [ {
-                type            => 'RequestToken',
+    $self->form->elements(
+        [   {   type            => 'RequestToken',
                 name            => $self->field_name,
                 expiration_time => $self->expiration_time,
                 context         => $self->context,
                 session_key     => $self->session_key
-            } ] );
+            }
+        ]
+    );
 
     return;
 }

@@ -22,8 +22,7 @@ $token = $token->value;
 
 like( $token, qr/^[a-z0-9]+$/, 'token value looks like a token' );
 
-ok( my $res = $mech->submit_form( fields => { 'basic_form' => 1, '_token' => "123" } ),
-    'submit with different token' );
+ok( my $res = $mech->submit_form( fields => { 'basic_form' => 1, '_token' => "123" } ), 'submit with different token' );
 
 unlike( $res->as_string, qr/VALID/, 'form is not valid' );
 
@@ -35,8 +34,7 @@ unlike( $res->as_string, qr/VALID/, 'basic_form is required' );
 
 $mech->get_ok('http://localhost/token/form');
 
-ok( $res = $mech->submit_form( fields => { 'basic_form' => 1, '_token' => $token } ),
-    'submit with valid token' );
+ok( $res = $mech->submit_form( fields => { 'basic_form' => 1, '_token' => $token } ), 'submit with valid token' );
 
 like( $res->as_string, qr/VALID/, 'form is valid' );
 

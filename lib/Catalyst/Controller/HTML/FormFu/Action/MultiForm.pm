@@ -16,6 +16,7 @@ sub execute {
     my ( $controller, $c ) = @_;
 
     if ( $self->reverse =~ $self->_form_action_regex ) {
+
         # don't load form again
         return $self->next::method(@_);
     }
@@ -24,8 +25,7 @@ sub execute {
 
     return $self->next::method(@_)
         unless exists $self->attributes->{ActionClass}
-            && $self->attributes->{ActionClass}[0] eq
-            $config->{multiform_action};
+        && $self->attributes->{ActionClass}[0] eq $config->{multiform_action};
 
     my $multi = $controller->_multiform;
 
