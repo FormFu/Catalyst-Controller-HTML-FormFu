@@ -26,6 +26,7 @@ matrix:
   allow_failures:
     - perl: blead       # ignore failures for blead perl
     - perl: "5.18"      # currently fails on Travis for some odd dzil build reason
+  include:
     - perl: "5.26"      # This can time out
       env: COVERAGE=1   # enables coverage+coveralls reporting
 
