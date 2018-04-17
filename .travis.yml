@@ -1,5 +1,6 @@
 language: perl
 perl: 
+  - "5.26"
   - "5.24"
   - "5.22"
   - "5.20"
@@ -8,21 +9,35 @@ perl:
   - "5.14"
   - "5.12"
   - "5.10"
-  ###- "5.8.8"          # fails due to Number::Format depedancy  
   #- "dev"              # installs latest developer release of perl (e.g. 5.21.8)
-  #- "blead"            # builds perl from git
+  - "blead"            # builds perl from git
 
 sudo: false             # faster builds as long as you don't need sudo access
 
 before_install:
-  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
-  - source ~/travis-perl-helpers/init --auto
+  - export MY_BASE_DIRECTORY=`pwd`
+  - eval $(curl https://travis-perl.github.io/init) --auto
+  - cd ${MY_BASE_DIRECTORY}
+
+  # prevent "please tell me who you are errors for certain DZIL configs
+  - git config --global user.name "Travis CI"
 
 matrix:
   allow_failures:
     - perl: blead       # ignore failures for blead perl
+    - perl: "5.18"      # currently fails on Travis for some odd dzil build reason
   include:
-    - perl: "5.20"
+    - perl: "5.24"
       env: COVERAGE=1   # enables coverage+coveralls reporting
+
+install:
+  # Deal with all the DZIL dependencies, quickly and quietly
+  - cpanm --quiet --notest --skip-satisfied Dist::Zilla
+  - dzil authordeps --missing | cpanm --quiet --notest --skip-satisfied
+  - dzil listdeps --author --develop --missing | cpanm --notest --skip-satisfied
+  - export HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
+
+script:
+  - dzil test --all
 
 # end
