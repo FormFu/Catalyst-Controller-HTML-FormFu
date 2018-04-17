@@ -1,4 +1,5 @@
 {{$NEXT}}
+    - Tweaks for travis CI and release tooling
 
 2.02      2017-05-22 13:20:48+01:00 Europe/London
     - Stop using Test::Aggregate::Nested for tests - RT#121792
