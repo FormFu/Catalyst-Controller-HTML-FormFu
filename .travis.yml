@@ -33,9 +33,9 @@ matrix:
 install:
   # Deal with all the DZIL dependencies, quickly and quietly
   - cpanm --quiet --notest --skip-satisfied App::cpm
-  - cpm Dist::Zilla
-  - dzil authordeps --missing | cpm
-  - dzil listdeps --author --develop --missing | cpm
+  - cpm install Dist::Zilla
+  - dzil authordeps --missing | cpm install
+  - dzil listdeps --author --develop --missing | cpm install
   - export HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
 
 script:
