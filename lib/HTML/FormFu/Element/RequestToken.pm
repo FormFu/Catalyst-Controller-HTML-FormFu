@@ -6,18 +6,18 @@ use strict;
 # AUTHORITY
 
 use Moose;
-use MooseX::Attribute::FormFuChained;
+use MooseX::Attribute::Chained;
 
 extends 'HTML::FormFu::Element::Text';
 
 use HTML::FormFu::Util qw( process_attrs );
 use Carp qw( croak );
 
-has expiration_time => ( is => 'rw', traits  => ['FormFuChained'], default => 3600 );
-has session_key     => ( is => 'rw', traits  => ['FormFuChained'], default => '__token' );
-has context         => ( is => 'rw', traits  => ['FormFuChained'], default => 'context' );
-has limit           => ( is => 'rw', traits  => ['FormFuChained'], default => 20 );
-has message         => ( is => 'rw', traits  => ['FormFuChained'], default => 'Form submission failed. Please try again.' );
+has expiration_time => ( is => 'rw', traits  => ['Chained'], default => 3600 );
+has session_key     => ( is => 'rw', traits  => ['Chained'], default => '__token' );
+has context         => ( is => 'rw', traits  => ['Chained'], default => 'context' );
+has limit           => ( is => 'rw', traits  => ['Chained'], default => 20 );
+has message         => ( is => 'rw', traits  => ['Chained'], default => 'Form submission failed. Please try again.' );
 
 after BUILD => sub {
     my $self = shift;
@@ -169,4 +169,3 @@ Moritz Onken, C<onken@houseofdesign.de>
 
 This library is free software, you can redistribute it and/or modify it under
 the same terms as Perl itself.
-

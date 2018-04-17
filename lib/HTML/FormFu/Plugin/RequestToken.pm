@@ -6,13 +6,13 @@ use strict;
 # AUTHORITY
 
 use Moose;
-use MooseX::Attribute::FormFuChained;
+use MooseX::Attribute::Chained;
 extends 'HTML::FormFu::Plugin';
 
-has context         => ( is => 'rw', traits  => ['FormFuChained'] );
-has field_name      => ( is => 'rw', traits  => ['FormFuChained'] );
-has session_key     => ( is => 'rw', traits  => ['FormFuChained'] );
-has expiration_time => ( is => 'rw', traits  => ['FormFuChained'] );
+has context         => ( is => 'rw', traits  => ['Chained'] );
+has field_name      => ( is => 'rw', traits  => ['Chained'] );
+has session_key     => ( is => 'rw', traits  => ['Chained'] );
+has expiration_time => ( is => 'rw', traits  => ['Chained'] );
 
 sub process {
     my ($self) = @_;

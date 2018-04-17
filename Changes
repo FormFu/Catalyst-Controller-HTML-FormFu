@@ -1,6 +1,11 @@
 {{$NEXT}}
     - Tweaks for travis CI and release tooling
 
+    - Revert to using MooseX::Attribute::Chained as per HTML::FormFu v2.06
+      Requires HTML::FormFu v2.06
+      fixes CPAN RT#125102
+      Thanks to Petr Písař <ppisar@redhat.com>
+
 2.02      2017-05-22 13:20:48+01:00 Europe/London
     - Stop using Test::Aggregate::Nested for tests - RT#121792
 
