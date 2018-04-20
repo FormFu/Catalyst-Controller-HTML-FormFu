@@ -11,7 +11,7 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 
 # VERSION
 
-version 2.03
+version 2.04
 
 # SYNOPSIS
 
@@ -592,3 +592,4 @@ from your repository :)
 - Moritz Onken <onken@netcubed.de>
 - Nigel Metheringham <nm9762github@muesli.org.uk>
 - omega <andreas.marienborg@gmail.com>
+- Petr Písař <ppisar@redhat.com>
