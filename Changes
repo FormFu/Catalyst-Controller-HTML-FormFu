@@ -1,4 +1,6 @@
 {{$NEXT}}
+    - No code changes from Trial release
+    - Updated list of contributors.
 
 2.03      2018-04-17 17:19:27+01:00 Europe/London (TRIAL RELEASE)
     - Tweaks for travis CI and release tooling
