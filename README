@@ -5,7 +5,7 @@ NAME
 
 VERSION
 
-    version 2.03
+    version 2.04
 
 SYNOPSIS
 
@@ -619,4 +619,6 @@ CONTRIBUTORS
       * Nigel Metheringham <nm9762github@muesli.org.uk>
 
       * omega <andreas.marienborg@gmail.com>
+
+      * Petr Písař <ppisar@redhat.com>
 

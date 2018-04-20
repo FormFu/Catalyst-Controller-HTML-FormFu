@@ -2,7 +2,7 @@ package Catalyst::Controller::HTML::FormFu::Action::Form;
 
 use strict;
 
-our $VERSION = '2.03'; # TRIAL VERSION
+our $VERSION = '2.04'; # VERSION
 our $AUTHORITY = 'cpan:NIGELM'; # AUTHORITY
 
 use Moose;
@@ -50,7 +50,7 @@ Catalyst::Controller::HTML::FormFu::Action::Form
 
 =head1 VERSION
 
-version 2.03
+version 2.04
 
 =head1 AUTHORS
 

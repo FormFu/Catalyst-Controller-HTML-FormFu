@@ -4,7 +4,7 @@ package Catalyst::Controller::HTML::FormFu;
 
 use strict;
 
-our $VERSION = '2.03'; # TRIAL VERSION
+our $VERSION = '2.04'; # VERSION
 our $AUTHORITY = 'cpan:NIGELM'; # AUTHORITY
 
 use Moose;
@@ -266,7 +266,7 @@ Catalyst::Controller::HTML::FormFu - Catalyst integration for HTML::FormFu
 
 =head1 VERSION
 
-version 2.03
+version 2.04
 
 =head1 SYNOPSIS
 
@@ -877,7 +877,7 @@ L<https://github.com/FormFu/Catalyst-Controller-HTML-FormFu>
 
 =head1 CONTRIBUTORS
 
-=for stopwords Aran Deltac bricas dandv fireartist lestrrat marcusramberg mariominati Moritz Onken Nigel Metheringham omega
+=for stopwords Aran Deltac bricas dandv fireartist lestrrat marcusramberg mariominati Moritz Onken Nigel Metheringham omega Petr Písař
 
 =over 4
 
@@ -924,6 +924,10 @@ Nigel Metheringham <nm9762github@muesli.org.uk>
 =item *
 
 omega <andreas.marienborg@gmail.com>
+
+=item *
+
+Petr Písař <ppisar@redhat.com>
 
 =back
 

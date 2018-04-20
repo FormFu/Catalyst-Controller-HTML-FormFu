@@ -2,7 +2,7 @@ package HTML::FormFu::Constraint::RequestToken;
 
 use strict;
 
-our $VERSION = '2.03'; # TRIAL VERSION
+our $VERSION = '2.04'; # VERSION
 our $AUTHORITY = 'cpan:NIGELM'; # AUTHORITY
 
 use Moose;
@@ -37,7 +37,7 @@ HTML::FormFu::Constraint::RequestToken
 
 =head1 VERSION
 
-version 2.03
+version 2.04
 
 =head1 AUTHORS
 

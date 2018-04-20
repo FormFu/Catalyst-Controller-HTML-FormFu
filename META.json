@@ -114,54 +114,54 @@
    "provides" : {
       "Catalyst::Controller::HTML::FormFu" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::Action::Form" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/Action/Form.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::Action::FormConfig" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/Action/FormConfig.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::Action::FormMethod" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/Action/FormMethod.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::Action::MultiForm" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/Action/MultiForm.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::Action::MultiFormConfig" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/Action/MultiFormConfig.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::Action::MultiFormMethod" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/Action/MultiFormMethod.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Controller::HTML::FormFu::ActionBase::Form" : {
          "file" : "lib/Catalyst/Controller/HTML/FormFu/ActionBase/Form.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "Catalyst::Helper::HTML::FormFu" : {
          "file" : "lib/Catalyst/Helper/HTML/FormFu.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "HTML::FormFu::Constraint::RequestToken" : {
          "file" : "lib/HTML/FormFu/Constraint/RequestToken.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "HTML::FormFu::Element::RequestToken" : {
          "file" : "lib/HTML/FormFu/Element/RequestToken.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       },
       "HTML::FormFu::Plugin::RequestToken" : {
          "file" : "lib/HTML/FormFu/Plugin/RequestToken.pm",
-         "version" : "2.03"
+         "version" : "2.04"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "homepage" : "https://github.com/FormFu/Catalyst-Controller-HTML-FormFu",
       "repository" : {
@@ -170,7 +170,7 @@
          "web" : "https://github.com/FormFu/Catalyst-Controller-HTML-FormFu"
       }
    },
-   "version" : "2.03",
+   "version" : "2.04",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.026001"
@@ -270,7 +270,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "v2.03",
+                  "tag" : "v2.04",
                   "tag_format" : "v%v",
                   "tag_message" : "v%v%t - %d"
                },
@@ -810,7 +810,7 @@
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : 1
+            "is_trial" : 0
          },
          "version" : "6.009"
       }
@@ -827,7 +827,8 @@
       "Moritz Onken <1nd@gmx.de>",
       "Moritz Onken <onken@netcubed.de>",
       "Nigel Metheringham <nm9762github@muesli.org.uk>",
-      "omega <andreas.marienborg@gmail.com>"
+      "omega <andreas.marienborg@gmail.com>",
+      "Petr P\u00edsa\u0159 <ppisar@redhat.com>"
    ],
    "x_serialization_backend" : "Cpanel::JSON::XS version 3.0233"
 }
