@@ -4,6 +4,7 @@ use strict;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: RequestToken constraint
 
 use Moose;
 

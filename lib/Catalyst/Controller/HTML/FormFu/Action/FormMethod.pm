@@ -4,6 +4,7 @@ use strict;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: FormMethod action
 
 use Moose;
 use Carp qw( croak );

@@ -4,6 +4,7 @@ use strict;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: RequestToken plugin
 
 use Moose;
 use MooseX::Attribute::Chained;
