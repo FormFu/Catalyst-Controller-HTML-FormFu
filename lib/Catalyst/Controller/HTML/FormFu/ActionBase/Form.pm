@@ -4,6 +4,7 @@ use strict;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: base for form actions
 
 use Moose;
 

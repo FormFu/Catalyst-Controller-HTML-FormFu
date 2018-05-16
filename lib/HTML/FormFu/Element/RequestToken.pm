@@ -4,6 +4,7 @@ use strict;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: Hidden text field which contains a unique token
 
 use Moose;
 use MooseX::Attribute::Chained;
@@ -91,11 +92,6 @@ sub get_token {
 1;
 
 __END__
-
-=head1 NAME
-
-HTML::FormFu::Element::RequestToken - Hidden text field which contains a unique
-token
 
 =head1 SYNOPSIS
 

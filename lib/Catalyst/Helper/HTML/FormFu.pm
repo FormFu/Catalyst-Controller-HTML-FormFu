@@ -5,6 +5,7 @@ use warnings;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: Helper to deploy HTML::FormFu template files.
 
 use File::Spec;
 use HTML::FormFu::Deploy;
@@ -31,10 +32,6 @@ sub mk_stuff {
 1;
 
 __END__
-
-=head1 NAME
-
-Catalyst::Helper::HTML::FormFu - Helper to deploy HTML::FormFu template files.
 
 =head1 SYNOPSIS
 

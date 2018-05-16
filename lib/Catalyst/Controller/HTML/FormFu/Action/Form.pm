@@ -4,6 +4,7 @@ use strict;
 
 # VERSION
 # AUTHORITY
+# ABSTRACT: Form action
 
 use Moose;
 use Config::Any;
