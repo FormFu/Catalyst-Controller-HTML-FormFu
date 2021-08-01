@@ -608,7 +608,7 @@ way to pass query values equivalent to C<< $c->uri_for( 'URI', \@ARGS,
 
 The second codeword that is being replaced is C<__path_to( @DIRS )__>. Any
 instance is replaced with the result of passing the C<DIRS> arguments to
-L<Catalyst/path_to>. Don't use qoutationmarks as they would become part of the
+L<Catalyst/path_to>. Don't use quotation marks as they would become part of the
 path.
 
 Default value: 1
@@ -624,7 +624,7 @@ Default value: C<false>.
 
 If set to a true value the action for the form will be set to the currently
 called action path. The action path includes concurrent to action name
-additioal parameters which were code inside the path.
+additional parameters which were code inside the path.
 
 Default value: C<false>.
 
@@ -672,13 +672,13 @@ Default value: C<context>
 
 If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which
 provides a C<languages> method that returns a list of valid languages to use
-for the currect request - and you want to use formfu's built-in I18N packages,
+for the current request - and you want to use formfu's built-in I18N packages,
 then setting L</languages_from_context>
 
 =head2 localize_from_context
 
 If you're using a L10N / I18N plugin such as L<Catalyst::Plugin::I18N> which
-provides it's own C<localize> method, you can set L<localize_from_context> to
+provides its own C<localize> method, you can set L<localize_from_context> to
 use that method for formfu's localization.
 
 =head2 request_token_enable
@@ -720,6 +720,6 @@ object will have automatically been set in L<< $form->query|HTML::FormFu/query
 >>.
 
 When using the C<FormConfig> and C<FormMethod> action attributes, if you make
-any modifications to the form, such as adding or changing it's elements, you
+any modifications to the form, such as adding or changing its elements, you
 must call L<< $form->process|HTML::FormFu/process >> before rendering the form.
 

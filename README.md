@@ -364,7 +364,7 @@ way to pass query values equivalent to `$c->uri_for( 'URI', \@ARGS,
 
 The second codeword that is being replaced is `__path_to( @DIRS )__`. Any
 instance is replaced with the result of passing the `DIRS` arguments to
-["path\_to" in Catalyst](https://metacpan.org/pod/Catalyst#path_to). Don't use qoutationmarks as they would become part of the
+["path\_to" in Catalyst](https://metacpan.org/pod/Catalyst#path_to). Don't use quotation marks as they would become part of the
 path.
 
 Default value: 1
@@ -380,7 +380,7 @@ Default value: `false`.
 
 If set to a true value the action for the form will be set to the currently
 called action path. The action path includes concurrent to action name
-additioal parameters which were code inside the path.
+additional parameters which were code inside the path.
 
 Default value: `false`.
 
@@ -428,13 +428,13 @@ Default value: `context`
 
 If you're using a L10N / I18N plugin such as [Catalyst::Plugin::I18N](https://metacpan.org/pod/Catalyst::Plugin::I18N) which
 provides a `languages` method that returns a list of valid languages to use
-for the currect request - and you want to use formfu's built-in I18N packages,
+for the current request - and you want to use formfu's built-in I18N packages,
 then setting ["languages\_from\_context"](#languages_from_context)
 
 ## localize\_from\_context
 
 If you're using a L10N / I18N plugin such as [Catalyst::Plugin::I18N](https://metacpan.org/pod/Catalyst::Plugin::I18N) which
-provides it's own `localize` method, you can set [localize\_from\_context](https://metacpan.org/pod/localize_from_context) to
+provides its own `localize` method, you can set [localize\_from\_context](https://metacpan.org/pod/localize_from_context) to
 use that method for formfu's localization.
 
 ## request\_token\_enable
@@ -474,7 +474,7 @@ you don't need to pass any arguments to `process`, as the Catalyst request
 object will have automatically been set in [$form->query](https://metacpan.org/pod/HTML::FormFu#query).
 
 When using the `FormConfig` and `FormMethod` action attributes, if you make
-any modifications to the form, such as adding or changing it's elements, you
+any modifications to the form, such as adding or changing its elements, you
 must call [$form->process](https://metacpan.org/pod/HTML::FormFu#process) before rendering the form.
 
 # AUTHORS
